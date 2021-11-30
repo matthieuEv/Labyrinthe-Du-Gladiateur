@@ -1,9 +1,12 @@
+from PIL import Image
+from numpy import*
+
 """
 Fonction pour gérer les entrées utilisateur
 - prend en argument:
-        le type attendu : "String" pour une str()
-                          "int" pour un int()
-        une liste avec toute les possibilités
+        typeIn = le type attendu : "String" pour une str()
+                                    "int" pour un int()
+        possibillity = une liste avec toute les possibilités
 - Renvoie : la valeur attendu en int ou str 
     //ATTENTION on peut pas attendre "" ou -1//
 """
@@ -33,4 +36,24 @@ def user_input(possibillity,typeIn="int"):
                 else:
                     pass
             except: 
-                print("valeur incorect")
+                pass
+
+
+"""
+Outils pour récupérer le labyrinthe a partir du fichier bitmap
+
+"""
+def recupLab(nb):
+    temp=Image.open("labs/"+str(nb)+".bmp")
+    # Crée une liste a partir de l'image, blanc=True et Noir==False
+    arrayBmp = array(temp)
+    #Nouvelle liste de la même taille que A
+    arraylab=[[None for t in range(len(arrayBmp[i]))]for i in range(len(arrayBmp))]
+
+    for i in range(len(arrayBmp)):
+        for j in range(len(arrayBmp[i])):
+            if arrayBmp[i][j]==True:
+                arraylab[i][j]=0
+            else:
+                arraylab[i][j]=1
+    return(arraylab)
