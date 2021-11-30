@@ -7,7 +7,7 @@ Fonction pour gérer les entrées utilisateur
 - Renvoie : la valeur attendu en int ou str 
     //ATTENTION on peut pas attendre "" ou -1//
 """
-def user_input(typeIn,possibillity):
+def user_input(typeIn="int",possibillity):
     #Crée la variable de récepetion en fonction des besoin
     inp = "" if typeIn == "string" else (-1)
     #tant que l'on est pas sortie 
