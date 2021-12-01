@@ -49,11 +49,13 @@ def recupLab(nb):
     arrayBmp = array(temp)
     #Nouvelle liste de la même taille que A
     arraylab=[[None for t in range(len(arrayBmp[i]))]for i in range(len(arrayBmp))]
-
+    #Convertir les True en 1 et les False en 0
+    #Peut-être ammener a changer 
     for i in range(len(arrayBmp)):
         for j in range(len(arrayBmp[i])):
             if arrayBmp[i][j]==True:
                 arraylab[i][j]=0
             else:
                 arraylab[i][j]=1
+    #On retourne la nouvelle liste
     return(arraylab)
