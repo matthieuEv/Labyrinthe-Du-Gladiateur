@@ -13,5 +13,8 @@ if __name__ == "__main__":
     nbLab = menu()
     lab = recupLab(nbLab)
     afficher_lab(lab)
+    
+
+
 
 

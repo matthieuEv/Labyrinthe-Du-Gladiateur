@@ -1,4 +1,8 @@
+from os import sep
 import colorama
+
+TAILLE_PLATEAU_X = 80
+TAILLE_PLATEAU_Y = 30
 
 #Fonction qui initialise colorama
 def init():
@@ -33,19 +37,19 @@ def afficher_lab (tabLab):
     clear()
     #afficher les contour de la zone de jeu (80x30):
     #D'abord le fond :
-    for x in range(40*2):
-        for y in range(30):
+    for x in range(TAILLE_PLATEAU_X):
+        for y in range(TAILLE_PLATEAU_Y):
             posXY(x,y)
             print(colorama.Back.LIGHTBLUE_EX," ",end='')
     #ensuite les contours :
-    for x in range(40*2):
-        for y in range(30):
+    for x in range(TAILLE_PLATEAU_X):
+        for y in range(TAILLE_PLATEAU_Y):
             posXY(x,y)
             if ((x == 0 or x == 80-1) or (y == 0 or y == 30-1)):
                 print(colorama.Back.BLUE," ",end='')
     #Ensuite le lab en lui même :
     #on set les position de départ pour le centrer dans la zone de jeu
-    depXY = [40 - len(tabLab),15 - len(tabLab[1])//2]
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
     #Ensuite on ballaye la taille du lab
     for x in range(len(tabLab)):
         for y in range(len(tabLab[x])):
@@ -67,5 +71,24 @@ def afficher_lab (tabLab):
     #On reset les styles pour la suite
     print(colorama.Style.RESET_ALL)
 
+'''
+Fonction qui gère l'affichage d'un déplacement d'entité
+Arguments:
+    - La liste a deux dim contenant le tableau du lab
+    - La liste a deux dim contenant le tableau du lab
+    - position de départ = liste a deux dim X-Y 
+        //Par defaut a -1 si pas de valeur de départ//
+retourne :
+    rien 
+'''
+def graph_deplacement_entite(tabLab,posArr,posDep=[-1,-1]):
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
+    if not(posDep[0]==-1):
+        posXY(depXY[0]+(2*posDep[0]),depXY[1]+posDep[1])
+        print(colorama.Back.LIGHTGREEN_EX,"  ",end='',sep='')
+    posXY(depXY[0]+(2*posArr[0]),depXY[1]+posArr[1])
+    print(colorama.Back.LIGHTGREEN_EX,"\U0001f600",end='',sep='')
+    posXY(0,31)
+    print()
 
-    
+

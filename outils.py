@@ -41,6 +41,10 @@ def user_input(possibillity,typeIn="int"):
 
 """
 Outils pour récupérer le labyrinthe a partir du fichier bitmap
+arguments :
+    - Le numéro du labyrinthe a charger sur un entier 
+retourne :
+    - Une liste a deux dim contenant les mur et passages du labyrinthe
 
 """
 def recupLab(nb):
