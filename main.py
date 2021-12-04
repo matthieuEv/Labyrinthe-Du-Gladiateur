@@ -3,8 +3,8 @@ Le labyrinthe du gladiateur :
 @author Matthieu,Elouan
 '''
 
-from color import afficher_lab,graph_deplacement_entite, posXY
-from menu import menu
+from color import afficher_lab, clear_down,graph_deplacement_entite, posXY
+from menu import menu, menu_joueur_jeu
 from outils import recupLab,recup_pos_file
 from logique import check_mur, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
@@ -39,12 +39,7 @@ if __name__ == "__main__":
 
             #Menu pour demander au joueur son mouvement
             dir_dispo = check_mur(lab,posEntXY[1])
-
-            # //WIP// -> Doit sortir "sensJoueur" un entier entre 0 pas
-            input()
-            sensJoueur = 1
-            #//WIP//
-            
+            sensJoueur = menu_joueur_jeu(dir_dispo)            
             #On stocke la nouvelle position dans une variable:
             newPosPlayer = deplacement_entite(sensJoueur,posEntXY[1])
             #déplacement visuel 
@@ -52,7 +47,6 @@ if __name__ == "__main__":
             #Update de la position réel 
             posEntXY[1]=newPosPlayer
 
-            input()
             #TOUR DU GLADIATEUR 
 
             #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
@@ -78,6 +72,7 @@ if __name__ == "__main__":
                     #car si c'est le cas on ne bougera pas et on y reste
             #Fin de la Manche
 
+        clear_down()
         if (win):
             print("Win")
         else:

@@ -1,5 +1,5 @@
 from outils import user_input
-from color import clear,posXY,init
+from color import clear,posXY,init,clear_down
 from colorama import Fore, Back
 
 def menu():
@@ -30,17 +30,15 @@ def menu():
 
 def menu_joueur_jeu(dir_possible):
     nomDir = ["Est","Ouest","Nord","Sud"]
-    possibility = []
-    posXY(0,31)
-    for i in range (7):
-        print('')
+    possibility = [0]
+    clear_down()
     posXY(0,31)
     print("Quel direction voulez vous ?")
     print("(0) - Ne pas bouger")
     for i in range(len(dir_possible)):
         if (dir_possible[i]):
             print("(%d) - %s"%(i+1,nomDir[i]))
-            possibility.append(dir_possible[i])
+            possibility.append(i+1)
     return(user_input(possibility))
     
 

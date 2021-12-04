@@ -25,6 +25,12 @@ def effaceLigne (x,y):
 def posXY(x,y):
     print("\x1b[%d;%dH"%(y,x),end="")
 
+#Fonction pour clear le dessous du plateau
+def clear_down ():
+    posXY(0,31)
+    for i in range (7):
+        print('')
+
 '''
 Fonction qui affiche le labytinthe
 // Cette fonction n'affiche pour l'instant que le lab Vide //
@@ -101,5 +107,7 @@ def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
         print("\U0001F606",end='',sep='')
     posXY(0,31)
     print(colorama.Style.RESET_ALL)
+
+
 
 
