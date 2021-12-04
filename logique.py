@@ -7,6 +7,11 @@ Fonction permettant d'éffectuer un déplacement d'une entité
 //La vérification de si le déplacement est possible doit être fait avant//
 Arguments : 
     - Le choix du sens de déplacement int()
+        - 0 = ne bouge pas 
+        - 1 = est 
+        - 2 = Ouest
+        - 3 = Nord
+        - 3 = sud
     - La liste à 2 dim avec la position du joueur :
             - [0] = position sur X 
             - [1] = position sur y
@@ -20,9 +25,9 @@ def deplacement_entite(sens,poXY):
     elif(sens == 2):
         new_pos[0] = poXY[0]-2
     elif(sens == 3):
-        new_pos[1] = poXY[1]+2
-    else:
         new_pos[1] = poXY[1]-2
+    else:
+        new_pos[1] = poXY[1]+2
     return(new_pos)
 
 """
@@ -58,3 +63,25 @@ def check_mur (tabLab,posEnti):
     if not(tabLab[posEnti[1]+1][posEnti[0]]):
         sens_dispo[3] = True
     return(sens_dispo)
+
+'''
+Fonction de choix de direction pour le glad
+argument : 
+    - liste de taille 4 avec les déplacement possible
+    - liste deux dim avec les position du glad [0] et du joueur [1]
+retourne :
+    - un entier avec la direction que doit prendre le glad 
+        - 0 = ne bouge pas 
+        - 1 = est 
+        - 2 = Ouest
+        - 3 = Nord
+        - 4 = sud
+'''
+def choix_dep_glad(dir_possible,posEntiXY):
+    sens = 0
+    for axe in range(2):
+        if (posEntiXY[1][axe]>posEntiXY[0][axe] and dir_possible[axe*3]):
+            sens = 1+(axe*3)
+        elif(posEntiXY[1][axe]<posEntiXY[0][axe] and dir_possible[1+(axe*1)]):
+            sens = 2 +(axe*1)
+    return(sens)
