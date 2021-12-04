@@ -33,25 +33,30 @@ if __name__ == "__main__":
         #Debut de la partie 
         #Initialisation d'une variable pour savoir si on a gagné
         win = False
+
         while (not(win) and not(checkmort(posEntXY))):
 
             #TOUR DU JOUEUR 
-
-            #Menu pour demander au joueur son mouvement
+            #Verification des mur autour du joueur
             dir_dispo = check_mur(lab,posEntXY[1])
-            sensJoueur = menu_joueur_jeu(dir_dispo)            
-            #On stocke la nouvelle position dans une variable:
-            newPosPlayer = deplacement_entite(sensJoueur,posEntXY[1])
-            #déplacement visuel 
-            graph_deplacement_entite(lab,1,newPosPlayer,posEntXY[1])
-            #Update de la position réel 
-            posEntXY[1]=newPosPlayer
+            #Menu pour demander au joueur son mouvement
+            sensJoueur = menu_joueur_jeu(dir_dispo)
+            #Si le joueur a choisi 0 == Ne pas bouger 
+            if sensJoueur == 10:
+                break
+            elif (sensJoueur!=0):      
+                #On stocke la nouvelle position dans une variable:
+                newPosPlayer = deplacement_entite(sensJoueur,posEntXY[1])
+                #déplacement visuel 
+                graph_deplacement_entite(lab,1,newPosPlayer,posEntXY[1])
+                #Update de la position réel 
+                posEntXY[1]=newPosPlayer
 
             #TOUR DU GLADIATEUR 
-
             #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
-            if (posEntXY[1][0]>len(lab)-1 or posEntXY[1][1]>len(lab[0])-1):
+            if (posEntXY[1][0]>=len(lab[0]) or posEntXY[1][1]>=len(lab)):
                 win = True
+                print("SALUT")
             #ça signifie que je joueur est encore dans le lab et que le gladiateur doit bouger
             else:
                 for i in range(2):
@@ -73,14 +78,15 @@ if __name__ == "__main__":
             #Fin de la Manche
 
         clear_down()
+        posXY(0 , 31)
         if (win):
             print("Win")
-        else:
-            print('Loose')
-        
+            input("Entre pour continuer")
+        elif(checkmort(posEntXY)):
+            print("Loose")  
+            input("Entre pour continuer")      
         #For now we just leave :
-        input()
-        exit("Fin provisoire")
+        
 
     
 

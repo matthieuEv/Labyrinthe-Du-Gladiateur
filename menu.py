@@ -30,7 +30,7 @@ def menu():
 
 def menu_joueur_jeu(dir_possible):
     nomDir = ["Est","Ouest","Nord","Sud"]
-    possibility = [0]
+    possibility = [10,0]
     clear_down()
     posXY(0,31)
     print("Quel direction voulez vous ?")
@@ -39,6 +39,7 @@ def menu_joueur_jeu(dir_possible):
         if (dir_possible[i]):
             print("(%d) - %s"%(i+1,nomDir[i]))
             possibility.append(i+1)
+    print("(10) - Quitter")
     return(user_input(possibility))
     
 
