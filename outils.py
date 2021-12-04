@@ -69,8 +69,7 @@ Outils pour récupérer la position initiale du joueur et du gladiateur dans le 
 argument : 
     - un entier avec le numéro du labyrinthe a charger 
 retourne :
-    - une liste a deux dimensions contenant les position X-Y du glad 
-    - une liste a deux dimensions contenant les position X-Y du joueur
+    - une liste a deux dimensions contenant les position X-Y du glad puis du joueur 
 """
 def recup_pos_file(nb):
     #Ouvrir le fichier contenant les position
@@ -85,4 +84,4 @@ def recup_pos_file(nb):
             #Chaque valeur de la liste prend la valeur de position qui lui correspond et la mettre en int
             posXY[entity][pos]=int(lstPos[entity].split('-')[pos+1])
     #Retourner les bonne valeur pour chaque entité
-    return(posXY[0],posXY[1])
+    return(posXY)
