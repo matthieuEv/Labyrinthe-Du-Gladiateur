@@ -74,11 +74,18 @@ if __name__ == "__main__":
                         graph_deplacement_entite(lab,0,newPosGlad,posEntXY[0])
                         #Update de la position réel
                         posEntXY[0] = newPosGlad
+                    #Pas besoin de retester si on est sur la position du joueur 
+                    #car si c'est le cas on ne bougera pas et on y reste
             #Fin de la Manche
 
-            #For now we just leave :
-            input()
-            exit("Fin provisoire")
+        if (win):
+            print("Win")
+        else:
+            print('Loose')
+        
+        #For now we just leave :
+        input()
+        exit("Fin provisoire")
 
     
 
