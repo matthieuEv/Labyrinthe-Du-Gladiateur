@@ -13,6 +13,7 @@ Arguments :
 retourne :
     - la liste à 2 dim de la position du joueur mis à jour
 '''
+
 def deplacement_entite(sens,poXY):
     new_pos = [None for i in range (2)]
     if (sens == 1 ):
@@ -24,3 +25,13 @@ def deplacement_entite(sens,poXY):
     else:
         new_pos[1] = poXY[1]-2
     return(new_pos)
+
+"""
+Fonction de test de mort du joueur 
+arguments : 
+    - liste a Deux dim contenant les position du glad et du joueur 
+retourne :
+    - True si le joueur et le glad sont sur la même case sinon False
+"""
+def checkmort (posEntiteXY):
+    return((posEntiteXY[0][0]==posEntiteXY[1][0]) and (posEntiteXY[0][1]==posEntiteXY[1][1]))
