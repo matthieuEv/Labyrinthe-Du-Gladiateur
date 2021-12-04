@@ -56,7 +56,6 @@ if __name__ == "__main__":
             #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
             if (posEntXY[1][0]>=len(lab[0]) or posEntXY[1][1]>=len(lab)):
                 win = True
-                print("SALUT")
             #ça signifie que je joueur est encore dans le lab et que le gladiateur doit bouger
             else:
                 for i in range(2):
