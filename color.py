@@ -49,14 +49,14 @@ def afficher_lab (tabLab):
                 print(colorama.Back.BLUE," ",end='')
     #Ensuite le lab en lui même :
     #on set les position de départ pour le centrer dans la zone de jeu
-    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
     #Ensuite on ballaye la taille du lab
     for x in range(len(tabLab)):
         for y in range(len(tabLab[x])):
             #On position le curseur a la position initiale plus la position dans le lab
-            posXY(depXY[0]+(2*x),depXY[1]+y)
+            posXY(depXY[0]+(2*y),depXY[1]+x)
             #Si on est sur un mur -> Noir
-            if (tabLab[y][x]):
+            if (tabLab[x][y]):
                 print(colorama.Back.BLACK,end='')
             #Sinon si on est sur une case inaccessible -> vert Foncé
             elif (not(x%2) or not(y%2)):
@@ -85,7 +85,7 @@ retourne :
     rien 
 '''
 def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
-    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
     if not(posDep[0]==-1):
         posXY(depXY[0]+(2*posDep[0]),depXY[1]+posDep[1])
         print(colorama.Back.LIGHTGREEN_EX,"  ",end='',sep='')

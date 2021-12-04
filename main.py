@@ -25,7 +25,6 @@ if __name__ == "__main__":
         """
         lab = recupLab(nbLab)
         posXY = recup_pos_file(nbLab)
-        print(posXY)
         #affichage du plateau
         afficher_lab(lab)
         for enti in range(2):
