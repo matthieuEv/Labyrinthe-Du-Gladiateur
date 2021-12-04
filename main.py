@@ -3,7 +3,7 @@ Le labyrinthe du gladiateur :
 @author Matthieu,Elouan
 '''
 
-from color import afficher_lab, clear_down,graph_deplacement_entite, posXY
+from color import afficher_lab, clear_down,graph_deplacement_entite, graph_mort, posXY
 from menu import menu, menu_joueur_jeu
 from outils import recupLab,recup_pos_file
 from logique import check_mur, checkmort, choix_dep_glad, deplacement_entite
@@ -32,32 +32,28 @@ if __name__ == "__main__":
 
         #Debut de la partie 
         #Initialisation d'une variable pour savoir si on a gagné
-        win = False
-
-        while (not(win) and not(checkmort(posEntXY))):
-
-            #TOUR DU JOUEUR 
-            #Verification des mur autour du joueur
-            dir_dispo = check_mur(lab,posEntXY[1])
-            #Menu pour demander au joueur son mouvement
-            sensJoueur = menu_joueur_jeu(dir_dispo)
-            #Si le joueur a choisi 0 == Ne pas bouger 
-            if sensJoueur == 10:
-                break
-            elif (sensJoueur!=0):      
-                #On stocke la nouvelle position dans une variable:
-                newPosPlayer = deplacement_entite(sensJoueur,posEntXY[1])
-                #déplacement visuel 
-                graph_deplacement_entite(lab,1,newPosPlayer,posEntXY[1])
-                #Update de la position réel 
-                posEntXY[1]=newPosPlayer
-
-            #TOUR DU GLADIATEUR 
-            #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
-            if (posEntXY[1][0]>=len(lab[0]) or posEntXY[1][1]>=len(lab)):
-                win = True
-            #ça signifie que je joueur est encore dans le lab et que le gladiateur doit bouger
+        find_de_jeu = False
+        tour_Joueur = True
+        while (not(find_de_jeu) and not(checkmort(posEntXY))):
+            if tour_Joueur:
+                #TOUR DU JOUEUR 
+                #Verification des mur autour du joueur
+                dir_dispo = check_mur(lab,posEntXY[1])
+                #Menu pour demander au joueur son mouvement
+                sensJoueur = menu_joueur_jeu(dir_dispo)
+                #Si le joueur a choisi 0 == Ne pas bouger 
+                if sensJoueur == 10:
+                    break
+                elif (sensJoueur!=0):      
+                    #On stocke la nouvelle position dans une variable:
+                    newPosPlayer = deplacement_entite(sensJoueur,posEntXY[1])
+                    #déplacement visuel 
+                    graph_deplacement_entite(lab,1,newPosPlayer,posEntXY[1])
+                    #Update de la position réel 
+                    posEntXY[1]=newPosPlayer
+                tour_Joueur = False
             else:
+                #TOUR DU GLADIATEUR 
                 for i in range(2):
                     sleep(0.5)
                     #On met a jour la variable dir_dispo avec les valeurs pour le glad
@@ -72,18 +68,22 @@ if __name__ == "__main__":
                         graph_deplacement_entite(lab,0,newPosGlad,posEntXY[0])
                         #Update de la position réel
                         posEntXY[0] = newPosGlad
-                    #Pas besoin de retester si on est sur la position du joueur 
-                    #car si c'est le cas on ne bougera pas et on y reste
-            #Fin de la Manche
-
-        clear_down()
-        posXY(0 , 31)
-        if (win):
-            print("Win")
-            input("Entre pour continuer")
-        elif(checkmort(posEntXY)):
-            print("Loose")  
-            input("Entre pour continuer")      
+                tour_Joueur = True
+    
+            #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
+            if (posEntXY[1][0]>=len(lab[0]) or posEntXY[1][1]>=len(lab)):
+                clear_down()
+                find_de_jeu = True
+                graph_mort(lab,posEntXY[1],True)
+                print("Win")
+                input("Entre pour continuer")
+            if checkmort(posEntXY):
+                clear_down()
+                find_de_jeu = True
+                graph_mort(lab,posEntXY[1],False)
+                print("Loose")  
+                input("Entre pour continuer")
+            #Fin de la Manche                  
         #For now we just leave :
         
 

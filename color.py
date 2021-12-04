@@ -28,10 +28,29 @@ def posXY(x,y):
 #Fonction pour clear le dessous du plateau
 def clear_down ():
     posXY(0,31)
-    for i in range (7):
+    for i in range (8):
         for i in range(30):
             print(' ',end='')
         print('\n',end='')
+"""
+Fonction pour changer le personnage a la fin du jeu
+argument: 
+    - liste a deux dim contenant le tableau 
+    - liste avec les position pour afficher l'emoji
+    - Un boolean a True si victoire
+retourne :
+    - rien 
+"""
+def graph_mort(tabLab,posafficher,vict):
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
+    posXY(depXY[0]+(2*posafficher[0]),depXY[1]+posafficher[1])
+    #Si c'est en cas de victoire 
+    if vict :
+        print(colorama.Back.LIGHTBLUE_EX,"\U0001f601",end='',sep='')
+    else :
+        print(colorama.Back.LIGHTGREEN_EX,"\U0001f480",end='',sep='')
+    print(colorama.Style.RESET_ALL)
+    posXY(0,31)
 
 '''
 Fonction qui affiche le labytinthe
@@ -104,9 +123,9 @@ def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
         print(colorama.Back.LIGHTGREEN_EX,end='')
     posXY(depXY[0]+(2*posArr[0]),depXY[1]+posArr[1])
     if entite :
-        print("\U0001f600",end='',sep='')
+        print("\U0001f628",end='',sep='')
     else:
-        print("\U0001F606",end='',sep='')
+        print("\U0001f608",end='',sep='')
     posXY(0,31)
     print(colorama.Style.RESET_ALL)
 
