@@ -16,7 +16,7 @@ Arguments :
             - [0] = position sur X 
             - [1] = position sur y
 retourne :
-    - la liste à 2 dim de la position du joueur mis à jour
+    - la liste à contenant la position du joueur mis à jour
 '''
 def deplacement_entite(sens,poXY):
     #On gère le cas de chaque sens 
@@ -40,6 +40,16 @@ retourne :
 """
 def checkmort (posEntiteXY):
     return((posEntiteXY[0][0]==posEntiteXY[1][0]) and (posEntiteXY[0][1]==posEntiteXY[1][1]))
+"""
+Fonction de test de mort du joueur 
+arguments : 
+    - liste a Deux dim contenant le labyrinthe
+    - une liste contenant la position du joueur
+retourne :
+    - True si le joueur et le glad sont sur la même case sinon False
+"""
+def checkWin (tabLab,posXY):
+    return(posXY[0]>=len(tabLab[0]) or posXY[1]>=len(tabLab) or posXY[0]<=0 or posXY[1]<=0)
 
 '''
 Fonction qui vérifie la présence de mur 

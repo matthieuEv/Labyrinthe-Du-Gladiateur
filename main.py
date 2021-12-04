@@ -6,7 +6,7 @@ Le labyrinthe du gladiateur :
 from color import afficher_lab, clear_down,graph_deplacement_entite, graph_mort, posXY
 from menu import menu, menu_joueur_jeu
 from outils import recupLab,recup_pos_file
-from logique import check_mur, checkmort, choix_dep_glad, deplacement_entite
+from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
 
 if __name__ == "__main__":
@@ -34,7 +34,7 @@ if __name__ == "__main__":
         #Initialisation d'une variable pour savoir si on a gagné
         find_de_jeu = False
         tour_Joueur = True
-        while (not(find_de_jeu) and not(checkmort(posEntXY))):
+        while (not(find_de_jeu)):
             if tour_Joueur:
                 #TOUR DU JOUEUR 
                 #Verification des mur autour du joueur
@@ -44,7 +44,7 @@ if __name__ == "__main__":
                 #Si le joueur a choisi 0 == Ne pas bouger 
                 if sensJoueur == 10:
                     break
-                elif (sensJoueur!=0):      
+                elif (sensJoueur!=0): 
                     #On stocke la nouvelle position dans une variable:
                     newPosPlayer = deplacement_entite(sensJoueur,posEntXY[1])
                     #déplacement visuel 
@@ -71,7 +71,7 @@ if __name__ == "__main__":
                 tour_Joueur = True
     
             #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
-            if (posEntXY[1][0]>=len(lab[0]) or posEntXY[1][1]>=len(lab)):
+            if (checkWin(lab,posEntXY[1])):
                 clear_down()
                 find_de_jeu = True
                 graph_mort(lab,posEntXY[1],True)
