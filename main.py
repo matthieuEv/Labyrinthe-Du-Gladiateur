@@ -35,6 +35,8 @@ if __name__ == "__main__":
         win = False
         while (not(win) and not(checkmort(posEntXY))):
 
+            #TOUR DU JOUEUR 
+
             #Menu pour demander au joueur son mouvement
             dir_dispo = check_mur(lab,posEntXY[1])
             # //WIP// -> Doit sortir "sensJoueur"
@@ -48,9 +50,20 @@ if __name__ == "__main__":
             graph_deplacement_entite(lab,1,newPosPlayer,posEntXY[1])
             #Update de la position réel 
             posEntXY[1]=newPosPlayer
+
+            #TOUR DU GLADIATEUR 
+            
+            #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
             if (posEntXY[1][0]>len(lab) or posEntXY[1][1]>len(lab[0])):
                 win = True
-                break
+            #ça signifie que je joueur est encore dans le lab et que le gladiateur doit bouger
+            else:
+                pass
+                #Verfication des mouvement possible du gladiateur 
+                #algorithme du glad 
+            
+            #Fin du tour ?
+
             
 
 
