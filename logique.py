@@ -90,13 +90,16 @@ retourne :
 def choix_dep_glad(dir_possible,posEntiXY):
     #On crée une variable pour le sens a renvoyer 
     sens = 0
+    #et un compteur 
+    cpt = 0
     #On vérifie d'abord selon Est-Ouest puis Nord-Sud
-    for axe in range(2):
+    while (cpt<2 and not(sens)):
         #si il est plus a 1 - est 2- nord on idique le sens qui va avec 
-        if (posEntiXY[1][axe]>posEntiXY[0][axe] and dir_possible[axe*3]):
-            sens = 1+(axe*3)
+        if (posEntiXY[1][cpt]>posEntiXY[0][cpt] and dir_possible[cpt*3]):
+            sens = 1+(cpt*3)
         #Sinon si l'autre coté 
-        elif(posEntiXY[1][axe]<posEntiXY[0][axe] and dir_possible[1+(axe*1)]):
-            sens = 2 +(axe*1)
-        #Si il est ni l'un ni l'autre on ne bouge pas 
+        elif(posEntiXY[1][cpt]<posEntiXY[0][cpt] and dir_possible[1+(cpt*1)]):
+            sens = 2 +(cpt*1) 
+        cpt+=1
+    #Si il est ni l'un ni l'autre on ne bouge pas
     return(sens)

@@ -29,7 +29,9 @@ def posXY(x,y):
 def clear_down ():
     posXY(0,31)
     for i in range (7):
-        print('')
+        for i in range(30):
+            print(' ',end='')
+        print('\n',end='')
 
 '''
 Fonction qui affiche le labytinthe
@@ -96,7 +98,7 @@ def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
     if not(posDep[0]==-1):
         posXY(depXY[0]+(2*posDep[0]),depXY[1]+posDep[1])
         print(colorama.Back.LIGHTGREEN_EX,"  ",end='',sep='')
-    if (posArr[0]>len(tabLab[0]) or posArr[1]>len(tabLab)):
+    if (posArr[0]>len(tabLab[0])-1 or posArr[1]>len(tabLab)-1):
         print(colorama.Back.LIGHTBLUE_EX,end='')
     else :
         print(colorama.Back.LIGHTGREEN_EX,end='')

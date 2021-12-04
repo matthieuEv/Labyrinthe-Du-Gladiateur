@@ -50,7 +50,7 @@ if __name__ == "__main__":
             #TOUR DU GLADIATEUR 
 
             #Si je joueur est en dehors du labyrinthe c'est qu'il a gagner 
-            if (posEntXY[1][0]>len(lab) or posEntXY[1][1]>len(lab[0])):
+            if (posEntXY[1][0]>len(lab)-1 or posEntXY[1][1]>len(lab[0])-1):
                 win = True
             #ça signifie que je joueur est encore dans le lab et que le gladiateur doit bouger
             else:
