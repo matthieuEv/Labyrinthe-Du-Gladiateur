@@ -1,5 +1,6 @@
 from os import sep
 import colorama
+from colorama.ansi import Back
 
 TAILLE_PLATEAU_X = 80
 TAILLE_PLATEAU_Y = 30
@@ -89,12 +90,16 @@ def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
     if not(posDep[0]==-1):
         posXY(depXY[0]+(2*posDep[0]),depXY[1]+posDep[1])
         print(colorama.Back.LIGHTGREEN_EX,"  ",end='',sep='')
+    if (posArr[0]>len(tabLab) or posArr[1]>len(tabLab[0])):
+        print(colorama.Back.LIGHTBLUE_EX,end='')
+    else :
+        print(colorama.Back.LIGHTGREEN_EX,end='')
     posXY(depXY[0]+(2*posArr[0]),depXY[1]+posArr[1])
     if entite :
-        print(colorama.Back.LIGHTGREEN_EX,"\U0001f600",end='',sep='')
+        print("\U0001f600",end='',sep='')
     else:
-        print(colorama.Back.LIGHTGREEN_EX,"\U0001F606",end='',sep='')
+        print("\U0001F606",end='',sep='')
     posXY(0,31)
-    print()
+    print(colorama.Style.RESET_ALL)
 
 
