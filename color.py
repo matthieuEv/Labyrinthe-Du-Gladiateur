@@ -75,19 +75,25 @@ def afficher_lab (tabLab):
 Fonction qui gère l'affichage d'un déplacement d'entité
 Arguments:
     - La liste a deux dim contenant le tableau du lab
-    - La liste a deux dim contenant le tableau du lab
+    - un entier contenant l'entite a afficher :
+        - 0 = gladiateur
+        - 1 = player
+    - position de d'arrive = liste a deux dim X-Y 
     - position de départ = liste a deux dim X-Y 
         //Par defaut a -1 si pas de valeur de départ//
 retourne :
     rien 
 '''
-def graph_deplacement_entite(tabLab,posArr,posDep=[-1,-1]):
+def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
     depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
     if not(posDep[0]==-1):
         posXY(depXY[0]+(2*posDep[0]),depXY[1]+posDep[1])
         print(colorama.Back.LIGHTGREEN_EX,"  ",end='',sep='')
     posXY(depXY[0]+(2*posArr[0]),depXY[1]+posArr[1])
-    print(colorama.Back.LIGHTGREEN_EX,"\U0001f600",end='',sep='')
+    if entite :
+        print(colorama.Back.LIGHTGREEN_EX,"\U0001f600",end='',sep='')
+    else:
+        print(colorama.Back.LIGHTGREEN_EX,"\U0001F606",end='',sep='')
     posXY(0,31)
     print()
 
