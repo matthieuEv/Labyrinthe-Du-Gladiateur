@@ -58,9 +58,9 @@ def recupLab(nb):
     for i in range(len(arrayBmp)):
         for j in range(len(arrayBmp[i])):
             if arrayBmp[i][j]==True:
-                arraylab[i][j]=0
-            else:
                 arraylab[i][j]=1
+            else:
+                arraylab[i][j]=0
     #On retourne la nouvelle liste
     return(arraylab)
 
