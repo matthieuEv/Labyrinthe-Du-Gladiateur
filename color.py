@@ -46,7 +46,7 @@ def afficher_lab (tabLab):
         for y in range(TAILLE_PLATEAU_Y):
             posXY(x,y)
             if ((x == 0 or x == 80-1) or (y == 0 or y == 30-1)):
-                print(colorama.Back.BLUE," ",colorama.Back.RESET,end='')
+                print(colorama.Back.BLUE," ",end='')
     #Ensuite le lab en lui même :
     #on set les position de départ pour le centrer dans la zone de jeu
     depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
