@@ -90,7 +90,7 @@ def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
     if not(posDep[0]==-1):
         posXY(depXY[0]+(2*posDep[0]),depXY[1]+posDep[1])
         print(colorama.Back.LIGHTGREEN_EX,"  ",end='',sep='')
-    if (posArr[0]>len(tabLab) or posArr[1]>len(tabLab[0])):
+    if (posArr[0]>len(tabLab[0]) or posArr[1]>len(tabLab)):
         print(colorama.Back.LIGHTBLUE_EX,end='')
     else :
         print(colorama.Back.LIGHTGREEN_EX,end='')
