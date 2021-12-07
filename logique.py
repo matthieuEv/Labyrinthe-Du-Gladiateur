@@ -32,16 +32,7 @@ def deplacement_entite(sens,poXY):
     return(new_pos)
 
 """
-Fonction de test de mort du joueur 
-arguments : 
-    - liste a Deux dim contenant les position du glad et du joueur 
-retourne :
-    - True si le joueur et le glad sont sur la même case sinon False
-"""
-def checkmort (posEntiteXY):
-    return((posEntiteXY[0][0]==posEntiteXY[1][0]) and (posEntiteXY[0][1]==posEntiteXY[1][1]))
-"""
-Fonction de test de mort du joueur 
+Fonction de test victoire du joueur 
 arguments : 
     - liste a Deux dim contenant le labyrinthe
     - une liste contenant la position du joueur
@@ -76,40 +67,3 @@ def check_mur (tabLab,posEnti):
     if not(tabLab[posEnti[1]+1][posEnti[0]]):
         sens_dispo[3] = True
     return(sens_dispo)
-    '''Alternative xD
-    for axe in range(2):
-        for cote in range(2):
-            if not(tabLab[posEnti[1]+(axe*(-1+(cote*2)))][posEnti[0]+((0 if axe else 1)*(-1+(cote*2)))]):
-                sens_dispo[axe*2+(cote*1 if axe else (0 if cote else 1))] = True
-    return(sens_dispo)
-    '''
-
-'''
-Fonction de choix de direction pour le glad
-argument : 
-    - liste de taille 4 avec les déplacement possible
-    - liste deux dim avec les position du glad [0] et du joueur [1]
-retourne :
-    - un entier avec la direction que doit prendre le glad 
-        - 0 = ne bouge pas 
-        - 1 = est 
-        - 2 = Ouest
-        - 3 = Nord
-        - 4 = sud
-'''
-def choix_dep_glad(dir_possible,posEntiXY):
-    #On crée une variable pour le sens a renvoyer 
-    sens = 0
-    #et un compteur 
-    cpt = 0
-    #On vérifie d'abord selon Est-Ouest puis Nord-Sud
-    while (cpt<2 and not(sens)):
-        #si il est plus a 1 - est 2- nord on idique le sens qui va avec 
-        if (posEntiXY[1][cpt]>posEntiXY[0][cpt] and dir_possible[cpt*3]):
-            sens = 1+(cpt*3)
-        #Sinon si l'autre coté 
-        elif(posEntiXY[1][cpt]<posEntiXY[0][cpt] and dir_possible[1+(cpt*1)]):
-            sens = 2 +(cpt*1) 
-        cpt+=1
-    #Si il est ni l'un ni l'autre on ne bouge pas
-    return(sens)
