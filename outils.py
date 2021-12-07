@@ -14,43 +14,45 @@ Fonction pour gérer les entrées utilisateur
 - Renvoie : la valeur attendu en int ou str 
     //ATTENTION on peut pas attendre "" ou -1//
 """
-def user_input(possibillity,typeIn="int",isPos=False,pos=[0,0]):
-    #Crée la variable de récepetion en fonction des besoin
-    inp = "" if typeIn == "string" else (-1)
+def user_input(possibillity,isPos=False,pos=[0,0]):
     #tant que l'on est pas sortie 
     while(1):
-        #Si on attend une str
-        if (typeIn == "string") : 
-            try:
-                if isPos :
-                    posXY(pos[0],pos[1])
-                    print("                    ",end='')
-                    posXY(pos[0],pos[1])
-                print("--> ",end='')
-                inp = str(input())
-                #Si la réponse est au bon format et est dans la liste on la retourne
-                if inp in possibillity :
-                    return(inp)
-                else:
-                    pass
-            except: 
+        try:
+            if isPos :
+                posXY(pos[0],pos[1])
+                print("                    ",end='')
+                posXY(pos[0],pos[1])
+            print("--> ",end='')
+            inp = int(input())
+            #Si la réponse est au bon format et est dans la liste on la retourne
+            if inp in possibillity :
+                return(inp)
+            else:
                 pass
-        #Sinon on est dans int
-        else:
-            try:
-                if isPos :
-                    posXY(pos[0],pos[1])
-                    print("                    ",end='')
-                    posXY(pos[0],pos[1])
-                print("--> ",end='')
-                inp = int(input())
-                #Si la réponse est au bon format et est dans la liste on la retourne
-                if inp in possibillity :
-                    return(inp)
-                else:
-                    pass
-            except: 
+        except: 
+            pass
+"""
+Fonction pour gérer les entrées utilisateur
+- prend en argument:
+        pos = position ou afficher [0,0] -- par defaut 
+- Renvoie : la valeur attendu en str 
+    //ATTENTION on peut pas attendre "" ou -1//
+"""
+def user_input_str(pos):
+    while(1):
+        try:
+            posXY(pos[0],pos[1])
+            print("                    ",end='')
+            posXY(pos[0],pos[1])
+            print("--> ",end='')
+            inp = int(input())
+            #Si la réponse est au bon format et est dans la liste on la retourne
+            if inp is type(str):
+                return(inp)
+            else:
                 pass
+        except: 
+            pass
 
 
 """
@@ -99,3 +101,22 @@ def recup_pos_file(nb):
             posXY[entity][pos]=int(lstPos[entity].split('-')[pos+1])
     #Retourner les bonne valeur pour chaque entité
     return(posXY)
+
+"""
+Outils pour le fichier save:
+argument : 
+    - le nom du fichier a lire 
+retourne :
+    - une liste avec le nom de la save et son emplacement
+"""
+def read_save_file(fichier):
+    with open(fichier,"r") as file:
+        f = file.read()
+        lst = f.split(';')
+        lst2 = []
+        print(f.split(";"))
+        for prof in lst:
+            lst2.append(prof.split(','))
+        for i in range(len(lst2)):
+            lst2[i][1] = int(lst2[i][1])
+        return(lst2)
