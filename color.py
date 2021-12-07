@@ -1,5 +1,6 @@
 from os import sep
 import colorama
+from colorama.ansi import Back
 
 TAILLE_PLATEAU_X = 80
 TAILLE_PLATEAU_Y = 30
@@ -23,6 +24,33 @@ def effaceLigne (x,y):
 #Fonction pour placer le curseur d'ecriture
 def posXY(x,y):
     print("\x1b[%d;%dH"%(y,x),end="")
+
+#Fonction pour clear le dessous du plateau
+def clear_down ():
+    posXY(0,31)
+    for i in range (8):
+        for i in range(30):
+            print(' ',end='')
+        print('\n',end='')
+"""
+Fonction pour changer le personnage a la fin du jeu
+argument: 
+    - liste a deux dim contenant le tableau 
+    - liste avec les position pour afficher l'emoji
+    - Un boolean a True si victoire
+retourne :
+    - rien 
+"""
+def graph_mort(tabLab,posafficher,vict):
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
+    posXY(depXY[0]+(2*posafficher[0]),depXY[1]+posafficher[1])
+    #Si c'est en cas de victoire 
+    if vict :
+        print(colorama.Back.LIGHTBLUE_EX,"\U0001f601",end='',sep='')
+    else :
+        print(colorama.Back.LIGHTGREEN_EX,"\U0001f480",end='',sep='')
+    print(colorama.Style.RESET_ALL)
+    posXY(0,31)
 
 '''
 Fonction qui affiche le labytinthe
@@ -49,14 +77,14 @@ def afficher_lab (tabLab):
                 print(colorama.Back.BLUE," ",end='')
     #Ensuite le lab en lui même :
     #on set les position de départ pour le centrer dans la zone de jeu
-    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
     #Ensuite on ballaye la taille du lab
     for x in range(len(tabLab)):
         for y in range(len(tabLab[x])):
             #On position le curseur a la position initiale plus la position dans le lab
-            posXY(depXY[0]+(2*x),depXY[1]+y)
+            posXY(depXY[0]+(2*y),depXY[1]+x)
             #Si on est sur un mur -> Noir
-            if (tabLab[y][x]):
+            if (tabLab[x][y]):
                 print(colorama.Back.BLACK,end='')
             #Sinon si on est sur une case inaccessible -> vert Foncé
             elif (not(x%2) or not(y%2)):
@@ -75,20 +103,32 @@ def afficher_lab (tabLab):
 Fonction qui gère l'affichage d'un déplacement d'entité
 Arguments:
     - La liste a deux dim contenant le tableau du lab
-    - La liste a deux dim contenant le tableau du lab
+    - un entier contenant l'entite a afficher :
+        - 0 = gladiateur
+        - 1 = player
+    - position de d'arrive = liste a deux dim X-Y 
     - position de départ = liste a deux dim X-Y 
         //Par defaut a -1 si pas de valeur de départ//
 retourne :
     rien 
 '''
-def graph_deplacement_entite(tabLab,posArr,posDep=[-1,-1]):
-    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab),TAILLE_PLATEAU_Y//2 - len(tabLab[1])//2]
+def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
+    depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
     if not(posDep[0]==-1):
         posXY(depXY[0]+(2*posDep[0]),depXY[1]+posDep[1])
         print(colorama.Back.LIGHTGREEN_EX,"  ",end='',sep='')
+    if (posArr[0]>len(tabLab[0])-1 or posArr[1]>len(tabLab)-1):
+        print(colorama.Back.LIGHTBLUE_EX,end='')
+    else :
+        print(colorama.Back.LIGHTGREEN_EX,end='')
     posXY(depXY[0]+(2*posArr[0]),depXY[1]+posArr[1])
-    print(colorama.Back.LIGHTGREEN_EX,"\U0001f600",end='',sep='')
+    if entite :
+        print("\U0001f628",end='',sep='')
+    else:
+        print("\U0001f608",end='',sep='')
     posXY(0,31)
-    print()
+    print(colorama.Style.RESET_ALL)
+
+
 
 
