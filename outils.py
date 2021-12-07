@@ -1,3 +1,4 @@
+from os import read
 from PIL import Image
 from numpy import*
 
@@ -108,12 +109,19 @@ def read_save_file(fichier):
         f = file.read()
         lst = f.split(';')
         lst2 = []
-        print(f.split(";"))
         for prof in lst:
             lst2.append(prof.split(','))
         for i in range(len(lst2)):
             lst2[i][1] = int(lst2[i][1])
         return(lst2)
 
+def testSaveExist(fichier,saveName):
+    lst = read_save_file(fichier)
+    for i in range(len(lst)):
+        # print(lst[i][0])
+        if (lst[i][0]).lower() == saveName.lower():
+            return True
+    return False
+
 if __name__ == "__main__":
-    print(user_input_str([10,10]))
+    print(testSaveExist("save","jeAn"))
