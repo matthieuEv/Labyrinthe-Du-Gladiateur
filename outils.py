@@ -40,19 +40,13 @@ Fonction pour gérer les entrées utilisateur
 """
 def user_input_str(pos):
     while(1):
-        try:
-            posXY(pos[0],pos[1])
-            print("                    ",end='')
-            posXY(pos[0],pos[1])
-            print("--> ",end='')
-            inp = int(input())
-            #Si la réponse est au bon format et est dans la liste on la retourne
-            if inp is type(str):
-                return(inp)
-            else:
-                pass
-        except: 
-            pass
+        posXY(pos[0],pos[1])
+        print("                    ",end='')
+        posXY(pos[0],pos[1])
+        print("--> ",end='')
+        inp = str(input())
+        #Si la réponse est au bon format et est dans la liste on la retourne
+        return(inp)
 
 
 """
@@ -120,3 +114,6 @@ def read_save_file(fichier):
         for i in range(len(lst2)):
             lst2[i][1] = int(lst2[i][1])
         return(lst2)
+
+if __name__ == "__main__":
+    print(user_input_str([10,10]))
