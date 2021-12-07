@@ -111,17 +111,28 @@ def read_save_file(fichier):
         lst2 = []
         for prof in lst:
             lst2.append(prof.split(','))
-        for i in range(len(lst2)):
-            lst2[i][1] = int(lst2[i][1])
+        if lst2[0][0]!='':
+            for i in range(len(lst2)):
+                lst2[i][1] = int(lst2[i][1])
+        else:
+            return([])
         return(lst2)
 
 def testSaveExist(fichier,saveName):
     lst = read_save_file(fichier)
     for i in range(len(lst)):
-        # print(lst[i][0])
         if (lst[i][0]).lower() == saveName.lower():
             return True
     return False
 
+def write_save_file(fichier,listn):
+    f = open(fichier, "w")
+    for i in range(len(listn)):
+        if i != 0:
+            f.write(';')
+        f.write(listn[i][0]+','+str(listn[i][1]))
+    
+    
+
 if __name__ == "__main__":
-    print(testSaveExist("save","jeAn"))
+    print(write_save_file("save",[["billie",5],["max",7]]))
