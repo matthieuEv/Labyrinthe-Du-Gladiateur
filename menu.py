@@ -40,7 +40,6 @@ def menu():
 
             posXY(23,17)
             choixLaby = user_input([0,1,2,3,4,5,6,7,8,9,10,11,12],isPos=True,pos=[23,17])
-
             print(colorama.Style.RESET_ALL)
             if choixLaby != 0:
                 clear()
