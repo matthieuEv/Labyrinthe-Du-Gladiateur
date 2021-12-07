@@ -1,6 +1,6 @@
 import colorama
 from outils import user_input
-from color import clear,posXY,init,clear_down
+from color import clear,posXY,init,clear_down,background
 from colorama import Fore, Back
 
 
