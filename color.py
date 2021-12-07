@@ -130,5 +130,24 @@ def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
     print(colorama.Style.RESET_ALL)
 
 
+"""
+Créée le fond d'écran du menu
+Arguments:
+    - None
+Return:
+    - None
+"""
+def background():
+    for x in range(TAILLE_PLATEAU_X):
+        for y in range(TAILLE_PLATEAU_Y):
+            posXY(x,y)
+            print(Back.LIGHTBLUE_EX," ",end='')
+    #ensuite les contours :
+    for x in range(TAILLE_PLATEAU_X):
+        for y in range(TAILLE_PLATEAU_Y):
+            posXY(x,y)
+            if ((x == 0 or x == 80-1) or (y == 0 or y == 30-1)):
+                print(Back.BLUE," ",end='')
+    print(colorama.Style.RESET_ALL)
 
 

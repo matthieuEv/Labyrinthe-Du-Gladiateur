@@ -4,23 +4,6 @@ from color import clear,posXY,init,clear_down
 from colorama import Fore, Back
 
 
-TAILLE_PLATEAU_X = 80
-TAILLE_PLATEAU_Y = 30
-
-def background():
-    for x in range(TAILLE_PLATEAU_X):
-        for y in range(TAILLE_PLATEAU_Y):
-            posXY(x,y)
-            print(Back.LIGHTBLUE_EX," ",end='')
-    #ensuite les contours :
-    for x in range(TAILLE_PLATEAU_X):
-        for y in range(TAILLE_PLATEAU_Y):
-            posXY(x,y)
-            if ((x == 0 or x == 80-1) or (y == 0 or y == 30-1)):
-                print(Back.BLUE," ",end='')
-    print(colorama.Style.RESET_ALL)
-
-
 def menu():
     init()
     while(1):
