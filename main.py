@@ -86,18 +86,12 @@ if __name__ == "__main__":
             if (checkWin(lab,posEntXY[1])):
                 #clear_down()
                 fin_de_jeu = True
-                #pgGraphEndGame(ecran,lab,posEntXY[1],True)
-                print("Win")
-                updateScreen
-                input("Entre pour continuer")
+                pgGraphEndGame(ecran,True)
                 closePygame()
             elif checkmort(posEntXY):
                 #clear_down()
                 fin_de_jeu = True
-                #pgGraphEndGame(ecran,lab,posEntXY[1],False)
-                print("Loose")  
-                updateScreen()
-                input("Entre pour continuer")
+                pgGraphEndGame(ecran,False)
                 closePygame()
             elif not(fin_de_jeu):
                 updateScreen()

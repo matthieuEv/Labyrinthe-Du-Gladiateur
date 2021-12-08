@@ -110,23 +110,6 @@ def pgDeplacementEntite(screen,tabLab,entite,posArr,posDep=[-1,-1]):
         screen.blit(pygame.image.load(os.path.join(base_path,"resources/glad.png")),(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1]))
 
 """
-Fonction pour changer le personnage a la fin du jeu
-argument: 
-    - un object screen
-    - liste a deux dim contenant le tableau 
-    - liste avec les position pour afficher l'emoji
-    - Un boolean a True si victoire
-retourne :
-    - rien 
-"""
-def  pgGraphEndGame(screen,tabLab,posafficher,vict):
-    dep = [LARGEUR//2 - (len(tabLab[0])//2)*TAILLE_CARRE,HAUTEUR//2 - (len(tabLab)//2)*TAILLE_CARRE]
-    if vict : 
-        pygame.draw.rect(screen,PURPLE,pygame.Rect(dep[0]+TAILLE_CARRE,posafficher[0],dep[1]+TAILLE_CARRE*posafficher[1],TAILLE_CARRE,TAILLE_CARRE))
-    else:
-        pygame.draw.rect(screen,PINK,pygame.Rect(dep[0]+TAILLE_CARRE*posafficher[0],dep[1]+TAILLE_CARRE*posafficher[1],TAILLE_CARRE,TAILLE_CARRE))
-
-"""
 check if EXIT is clicked
 argument:
     - int contenant l'event
@@ -174,3 +157,26 @@ def closePygame():
     pygame.display.quit()
     pygame.quit()
 
+"""
+Fonction pour changer le personnage a la fin du jeu
+argument: 
+    - un object screen
+    - liste a deux dim contenant le tableau 
+    - Un boolean a True si victoire
+retourne :
+    - rien 
+"""
+def  pgGraphEndGame(screen,vict):
+    pygame.font.init()
+    myfont = pygame.font.SysFont('Comic Sans MS', 50)
+    if vict : 
+        textsurface = myfont.render('WIN', False, (0, 0, 0))
+    else:
+        textsurface = myfont.render('LOOSE', False, (0, 0, 0))
+    screen.blit(textsurface,(575,50))
+    screen.blit(pygame.font.SysFont('Comic Sans MS',30).render('Appuyer sur une touche pour continer',False,(0,0,0)),(850,700))
+    updateScreen()
+    event=[]
+    while(not(event)):
+        event = getEvent()
+    return()
