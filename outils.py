@@ -1,8 +1,9 @@
-from os import read
+from os import defpath, read
 from PIL import Image
 from numpy import*
-
-from color import posXY
+from math import ceil
+from color import posXY,clear,background
+import colorama
 
 """
 Fonction pour gérer les entrées utilisateur
@@ -132,7 +133,59 @@ def write_save_file(fichier,listn):
             f.write(';')
         f.write(listn[i][0]+','+str(listn[i][1]))
     
+def printSave(fichier):
+    profils = read_save_file(fichier)
+    posXY(23,13)
+    nbrPage = ceil(len(profils)/10)
+    posPage=1
     
 
+    if len(profils) <= 10:
+        posXY(23,13)
+        print("Choisissez une save  | Il y a ",nbrPage," pages. << ",posPage,"/",nbrPage," >>",sep="")
+        posXY(23,14)
+        for i in range (len(profils)):
+            actualPos=15+i
+            posXY(23,actualPos)
+            print("• ",profils[i][0]," (",i+1,")", sep="")
+        posXY(23,actualPos+1)
+        print("• Quitter menu (0)")
+        lst=[0]
+        for j in range(len(profils)):
+            lst.append(j+1)
+        choose=user_input(lst,isPos=True,pos=[23,actualPos+3])
+        return choose
+    else:
+        while True:
+            posXY(23,13)
+            print("Choisissez une save  | Il y a ",nbrPage," pages. << ",posPage,"/",nbrPage," >>",sep="")
+            posXY(23,14)
+            for i in range (10):
+                actualPos=15+i
+                posXY(23,actualPos)
+                print("• ",profils[i][0]," (",i+1,")", sep="")
+            posXY(23,actualPos+1)
+            print("• Quitter menu (0), Page après (11), Page avant (12)")
+            choose=user_input([0,1,2,3,4,5,6,7,8,9,10,11,12],isPos=True,pos=[23,actualPos+3])
+
+            if choose == 11 and posPage != nbrPage:
+                posPage += 1
+                print("Choisissez une save  | Il y a ",nbrPage," pages. << ",posPage,"/",nbrPage," >>",sep="")
+                posXY(23,14)
+                for i in range (len(profils)%10):
+                    actualPos=15+i
+                    posXY(23,actualPos)
+                    print("• ",profils[i][0]," (",i+1,")", sep="")
+                posXY(23,actualPos+1)
+                print("• Quitter menu (0), Page après (11), Page avant (12)")
+                choose=user_input([0,1,2,3,4,5,6,7,8,9,10,11,12],isPos=True,pos=[23,actualPos+3])
+
+            if choose == 12 and posPage != 1:
+                pass
+
+            return choose
+
+
+
 if __name__ == "__main__":
-    print(write_save_file("save",[["billie",5],["max",7]]))
+    print(printSave("save"))
