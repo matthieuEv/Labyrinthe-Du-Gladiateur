@@ -1,6 +1,6 @@
 import colorama
 from colorama.initialise import reset_all
-from outils import read_save_file, user_input, user_input_str,testSaveExist, write_save_file
+from outils import printSave, read_save_file, user_input, user_input_str,testSaveExist, write_save_file
 from color import clear,posXY,init,clear_down,background
 from colorama import Fore, Back
 
@@ -72,7 +72,15 @@ def menu():
                 clear()
                 background()
                 posXY(20,11)
-                input("continue")
+                print(Back.LIGHTBLUE_EX,Fore.BLACK,"▬▬▬▬▬ Labyrinthe Du Gladiateur ▬▬▬▬▬")
+
+                choose = printSave("save")
+                
+                print(colorama.Style.RESET_ALL)
+                if choose != 0:
+                    return choose
+
+
             if choose == 2: #créer la save
                 print(colorama.Style.RESET_ALL)
                 clear()
@@ -86,10 +94,10 @@ def menu():
                     if testSaveExist("save",saveName) == False:
                         break
                 profils.append([saveName,1])
-                print(profils)
                 write_save_file("save",profils)
                 clear()
                 print(colorama.Style.RESET_ALL)
+                return 1
 
 
 def menu_joueur_jeu(dir_possible):
