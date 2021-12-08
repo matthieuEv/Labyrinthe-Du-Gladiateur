@@ -1,4 +1,6 @@
 import pygame
+from pygame import display
+import os
 
 #Taille
 HAUTEUR = 720
@@ -97,12 +99,15 @@ retourne :
 """
 def pgDeplacementEntite(screen,tabLab,entite,posArr,posDep=[-1,-1]):
     dep = [LARGEUR//2 - (len(tabLab[0])//2)*TAILLE_CARRE,HAUTEUR//2 - (len(tabLab)//2)*TAILLE_CARRE]
+    base_path = os.path.dirname(__file__)
     if (posDep[0]!=-1):
         pygame.draw.rect(screen,GREEN,pygame.Rect(dep[0]+TAILLE_CARRE*posDep[0],dep[1]+TAILLE_CARRE*posDep[1],TAILLE_CARRE,TAILLE_CARRE))
     if entite :
-        pygame.draw.rect(screen,YELLOW,pygame.Rect(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1],TAILLE_CARRE,TAILLE_CARRE))
+        #pygame.draw.rect(screen,YELLOW,pygame.Rect(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1],TAILLE_CARRE,TAILLE_CARRE))
+        screen.blit(pygame.image.load(os.path.join(base_path,"resources/player.png")),(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1]))
     else:
-        pygame.draw.rect(screen,RED,pygame.Rect(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1],TAILLE_CARRE,TAILLE_CARRE))
+        #pygame.draw.rect(screen,RED,pygame.Rect(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1],TAILLE_CARRE,TAILLE_CARRE))
+        screen.blit(pygame.image.load(os.path.join(base_path,"resources/glad.png")),(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1]))
 
 """
 Fonction pour changer le personnage a la fin du jeu
@@ -120,3 +125,52 @@ def  pgGraphEndGame(screen,tabLab,posafficher,vict):
         pygame.draw.rect(screen,PURPLE,pygame.Rect(dep[0]+TAILLE_CARRE,posafficher[0],dep[1]+TAILLE_CARRE*posafficher[1],TAILLE_CARRE,TAILLE_CARRE))
     else:
         pygame.draw.rect(screen,PINK,pygame.Rect(dep[0]+TAILLE_CARRE*posafficher[0],dep[1]+TAILLE_CARRE*posafficher[1],TAILLE_CARRE,TAILLE_CARRE))
+
+"""
+check if EXIT is clicked
+argument:
+    - int contenant l'event
+return :
+    - True si c'est un event exit False sinon
+"""
+def eventQuit(a):
+    return(a == pygame.QUIT)
+
+
+"""
+Fonction qui permet de récupérer le sens de déplacement en fonction des imput clavier
+Argument :
+    - l'event 
+    - les diréction disponible
+retourne : 
+    - le numéro de la direction choisi 
+"""
+def eventArrow(e,dir):
+    if e.type == pygame.KEYUP:
+        print(e.key , ord('d') )
+        if (e.key == ord('d') and dir[0]):
+            return(1)
+        elif (e.key == ord('q') and dir[1]):
+            return(2)
+        elif (e.key == ord('z') and dir[2]):
+            return(3)
+        elif (e.key == ord('s') and dir[3]):
+            return(4)
+        elif (e.key == ord(' ')):
+            return(0)
+        elif (e.key == ord('m')):
+            closePygame()
+            return(10)
+    return(-1)
+
+"""
+Fonction pour fermer l'ecran pygame
+Agument :
+    - rien 
+Retourne :
+    - rien 
+"""
+def closePygame():
+    pygame.display.quit()
+    pygame.quit()
+
