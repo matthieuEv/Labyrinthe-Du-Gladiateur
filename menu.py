@@ -15,9 +15,8 @@ def menu():
         print("• Choisir le labyrinthe (1)")
         posXY(23,14)
         print("• Quitter le jeu (0)")
-        posXY(23,17)
         #run = soit 0, soit 1, pas autre choses)
-        run=user_input([0,1])
+        run=user_input([0,1],isPos=True,pos=[23,17])
         #si run = 0, on quitte tout
         if run == 0:
             print(colorama.Style.RESET_ALL)
@@ -40,7 +39,8 @@ def menu():
             #choixLaby est compris entre 0 et 12
 
             posXY(23,17)
-            choixLaby = user_input([0,1,2,3,4,5,6,7,8,9,10,11,12])
+            choixLaby = user_input([0,1,2,3,4,5,6,7,8,9,10,11,12],isPos=True,pos=[23,17])
+
             print(colorama.Style.RESET_ALL)
             if choixLaby != 0:
                 clear()
