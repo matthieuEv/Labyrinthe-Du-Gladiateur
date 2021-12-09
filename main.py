@@ -2,14 +2,11 @@
 Le labyrinthe du gladiateur :
 @author Matthieu,Elouan
 '''
-
-from pygame.display import update
-from color import afficher_lab, clear_down,graph_deplacement_entite, graph_mort
-from menu import menu, menu_joueur_jeu
+from menu import menu
 from outils import recupLab,recup_pos_file
 from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
-from pygameFile import closePygame, eventArrow, eventQuit, fondDecran, getEvent, pgAfficherLab, pgDeplacementEntite, pgGraphEndGame, pgInit, updateScreen
+from pygameFile import closePygame, eventArrow, fondDecran, getEvent, pgAfficherLab, pgDeplacementEntite, pgGraphEndGame, pgInit, updateScreen
 
 if __name__ == "__main__":
     #tant que le joueur ne choisi pas de sortir depuis le menu 

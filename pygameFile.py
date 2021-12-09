@@ -1,5 +1,4 @@
 import pygame
-from pygame import display
 import os
 
 #Taille
@@ -130,7 +129,6 @@ retourne :
 """
 def eventArrow(e,dir):
     if e.type == pygame.KEYUP:
-        print(e.key , ord('d') )
         if (e.key == ord('d') and dir[0]):
             return(1)
         elif (e.key == ord('q') and dir[1]):
