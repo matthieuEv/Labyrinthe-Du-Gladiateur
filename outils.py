@@ -102,21 +102,23 @@ Outils pour le fichier save:
 argument : 
     - le nom du fichier a lire 
 retourne :
-    - une liste avec le nom de la save et son emplacement
+    - 3 liste avec le labyrinthe en cours, la position en cours du gladiateur 
+      et la position en cours du joueur
 """
 def read_save_file(fichier):
     with open(fichier,"r") as file:
         f = file.read()
         lst = f.split(';')
-        lst2 = []
+        lst2,lst3 = [],[]
         for prof in lst:
-            lst2.append(prof.split(','))
-        if lst2[0][0]!='':
-            for i in range(len(lst2)):
-                lst2[i][1] = int(lst2[i][1])
-        else:
-            return([])
-        return(lst2)
+            lst2.append(prof.split('-'))
+        for i in range(3):
+            lst3.append(lst2[i][0].split(':'))
+        currentLab = [lst3[0][1],lst3[1][1],lst3[2][1]]
+        posLabGlad = [lst2[0][1],lst2[1][1],lst2[2][1]]
+        posLabPlay = [lst2[0][2],lst2[1][2],lst2[2][2]]
+
+        return currentLab,posLabGlad,posLabPlay
 
 def testSaveExist(fichier,saveName):
     lst = read_save_file(fichier)
