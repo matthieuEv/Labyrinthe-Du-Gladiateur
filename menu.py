@@ -59,37 +59,50 @@ def menu():
             print(Back.LIGHTBLUE_EX,Fore.BLACK,"▬▬▬▬▬ Labyrinthe Du Gladiateur ▬▬▬▬▬")
             profils = read_save_file("save")
             posXY(23,13)
-            print("• Choisir une save (1)")
+            print("• Choisir une sauvegarde (1)")
             posXY(23,14)
-            print("• Créer une save (2)")
-            posXY(23,15)
+            # print("• Créer une sauvegarde (2)")
+            # posXY(23,15)
             print("• Quitter menu (0)")
             #run = soit 0, soit 1, pas autre choses)
-            choose=user_input([0,1,2],isPos=True,pos=[23,18])
+            choose=user_input([0,1],isPos=True,pos=[23,18])
             print(colorama.Style.RESET_ALL)
-            if choose == 1:
+
+
+            if choose == 1: #choisir la sauvegarde
                 print(colorama.Style.RESET_ALL)
                 clear()
                 background()
-                posXY(20,11)
-                input("continue")
-            if choose == 2: #créer la save
-                print(colorama.Style.RESET_ALL)
-                clear()
-                background()
+
+                currentLvl1=read_save_file("save")[0][0]
+                currentLvl2=read_save_file("save")[0][1]
+                currentLvl3=read_save_file("save")[0][2]
+
                 posXY(20,11)
                 print(Back.LIGHTBLUE_EX,Fore.BLACK,"▬▬▬▬▬ Labyrinthe Du Gladiateur ▬▬▬▬▬")
+
                 posXY(23,13)
-                print("• Nom de la save:")
-                while True:
-                    saveName=user_input_str([23, 15])
-                    if testSaveExist("save",saveName) == False:
-                        break
-                profils.append([saveName,1])
-                print(profils)
-                write_save_file("save",profils)
-                clear()
-                print(colorama.Style.RESET_ALL)
+                print("• Jouer sur la sauvegarde 1 (1)")
+                posXY(27,14)
+                print("Niveau actuel: ", currentLvl1)
+
+                posXY(23,16)
+                print("• Jouer sur la sauvegarde 2 (2)")
+                posXY(27,17)
+                print("Niveau actuel: ", currentLvl2)
+
+
+                posXY(23,19)
+                print("• Jouer sur la sauvegarde 3 (3)")
+                posXY(27,20)
+                print("Niveau actuel: ", currentLvl3)
+
+
+                posXY(23,22)
+                print("• Quitter menu (0)")
+
+                choose=user_input([0,1,2,3],isPos=True,pos=[23,24])
+                return choose
 
 
 def menu_joueur_jeu(dir_possible):
