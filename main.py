@@ -5,7 +5,7 @@ Le labyrinthe du gladiateur :
 
 from color import afficher_lab, clear_down,graph_deplacement_entite, graph_mort, posXY
 from menu import menu, menu_joueur_jeu
-from outils import recupLab,recup_pos_file
+from outils import newBest, recupLab,recup_pos_file
 from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
 
@@ -34,6 +34,8 @@ if __name__ == "__main__":
         #Initialisation d'une variable pour savoir si on a gagné
         find_de_jeu = False
         tour_Joueur = True
+        #Nombre de tour fait par le joueur 
+        nb_tour = 0
         while (not(find_de_jeu)):
             if tour_Joueur:
                 #TOUR DU JOUEUR 
@@ -52,6 +54,8 @@ if __name__ == "__main__":
                     #Update de la position réel 
                     posEntXY[1]=newPosPlayer
                 tour_Joueur = False
+                #On icremente le nombre de tour 
+                nb_tour+=1
             else:
                 #TOUR DU GLADIATEUR 
                 for i in range(2):
@@ -76,7 +80,9 @@ if __name__ == "__main__":
                 find_de_jeu = True
                 graph_mort(lab,posEntXY[1],True)
                 print("Win")
+                print(newBest(nbLab,nb_tour))
                 input("Entre pour continuer")
+            #Si le joueur a la même pos que le glad c'est qu'il est mort
             if checkmort(posEntXY):
                 clear_down()
                 find_de_jeu = True

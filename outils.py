@@ -109,3 +109,22 @@ retourne :
 """
 def recupLeaderboard():
     return (open('leaderboard','r').readlines()[0].split(','))
+
+"""
+Fonction qui écrit le score si il est meilleur que l'ancien
+argument: 
+    - le numéro du lab
+    - le Nombre de tour 
+retourne:
+    - un texte si le score est un nouveau meilleur 
+"""
+def newBest(nbLab,nbTour):
+    ldb = recupLeaderboard()
+    if (nbTour<int(ldb[nbLab-1])):
+        ldb[nbLab-1]=str(nbTour)
+        file = open('leaderboard','w')
+        for i in range(len(ldb)):
+            file.write((","+ldb[i])if i!=0 else(ldb[i]))
+        return("Nouveau meilleur !")
+    else:
+        return('')
