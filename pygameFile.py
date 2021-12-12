@@ -164,14 +164,17 @@ argument:
 retourne :
     - rien 
 """
-def  pgGraphEndGame(screen,vict):
+def  pgGraphEndGame(screen,vict,best=False):
     pygame.font.init()
     myfont = pygame.font.SysFont('Comic Sans MS', 50)
     if vict : 
         textsurface = myfont.render('WIN', False, (0, 0, 0))
+            
     else:
         textsurface = myfont.render('LOOSE', False, (0, 0, 0))
     screen.blit(textsurface,(575,50))
+    if best:
+        screen.blit(pygame.font.SysFont('Comic Sans MS',30).render('Nouveau meilleur',False,(0,0,0)),(575,670))
     screen.blit(pygame.font.SysFont('Comic Sans MS',30).render('Appuyer sur une touche pour continer',False,(0,0,0)),(850,700))
     updateScreen()
     event=[]

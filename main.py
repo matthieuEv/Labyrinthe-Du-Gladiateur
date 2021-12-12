@@ -3,7 +3,7 @@ Le labyrinthe du gladiateur :
 @author Matthieu,Elouan
 '''
 from menu import menu
-from outils import recupLab,recup_pos_file
+from outils import recupLab,recup_pos_file,newBest
 from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
 from pygameFile import closePygame, eventArrow, fondDecran, getEvent, pgAfficherLab, pgDeplacementEntite, pgGraphEndGame, pgInit, updateScreen
@@ -87,8 +87,8 @@ if __name__ == "__main__":
             if (checkWin(lab,posEntXY[1])):
                 #clear_down()
                 fin_de_jeu = True
-                pgGraphEndGame(ecran,True)
-                #WIP NewBest
+                best = (False if newBest(nbLab,nb_tour)=='' else True)
+                pgGraphEndGame(ecran,True,best)
                 closePygame()
             elif checkmort(posEntXY):
                 #clear_down()
