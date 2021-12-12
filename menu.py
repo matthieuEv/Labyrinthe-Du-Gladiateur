@@ -1,3 +1,4 @@
+from os import replace
 import colorama
 from colorama.initialise import reset_all
 from outils import read_save_file, user_input, user_input_str,testSaveExist, write_save_file
@@ -61,11 +62,11 @@ def menu():
             posXY(23,13)
             print("• Choisir une sauvegarde (1)")
             posXY(23,14)
-            # print("• Créer une sauvegarde (2)")
-            # posXY(23,15)
+            print("• Supprimer une sauvegarde (2)")
+            posXY(23,15)
             print("• Quitter menu (0)")
             #run = soit 0, soit 1, pas autre choses)
-            choose=user_input([0,1],isPos=True,pos=[23,18])
+            choose=user_input([0,1,2],isPos=True,pos=[23,18])
             print(colorama.Style.RESET_ALL)
 
 
@@ -73,36 +74,58 @@ def menu():
                 print(colorama.Style.RESET_ALL)
                 clear()
                 background()
-
                 currentLvl1=read_save_file("save")[0][0]
                 currentLvl2=read_save_file("save")[0][1]
                 currentLvl3=read_save_file("save")[0][2]
-
                 posXY(20,11)
                 print(Back.LIGHTBLUE_EX,Fore.BLACK,"▬▬▬▬▬ Labyrinthe Du Gladiateur ▬▬▬▬▬")
-
                 posXY(23,13)
                 print("• Jouer sur la sauvegarde 1 (1)")
                 posXY(27,14)
                 print("Niveau actuel: ", currentLvl1)
-
                 posXY(23,16)
                 print("• Jouer sur la sauvegarde 2 (2)")
                 posXY(27,17)
                 print("Niveau actuel: ", currentLvl2)
-
-
                 posXY(23,19)
                 print("• Jouer sur la sauvegarde 3 (3)")
                 posXY(27,20)
                 print("Niveau actuel: ", currentLvl3)
-
-
                 posXY(23,22)
                 print("• Quitter menu (0)")
-
                 choose=user_input([0,1,2,3],isPos=True,pos=[23,24])
-                return choose
+                if choose !=0:
+                    return choose
+                print(colorama.Style.RESET_ALL)
+
+            if choose == 2: #supprimer la sauvegarde
+                print(colorama.Style.RESET_ALL)
+                clear()
+                background()
+                currentLvl1=read_save_file("save")[0][0]
+                currentLvl2=read_save_file("save")[0][1]
+                currentLvl3=read_save_file("save")[0][2]
+                posXY(20,11)
+                print(Back.LIGHTBLUE_EX,Fore.BLACK,"▬▬▬▬▬ Labyrinthe Du Gladiateur ▬▬▬▬▬")
+                posXY(23,13)
+                print("• Supprimer la sauvegarde 1 (1)")
+                posXY(27,14)
+                print("Niveau actuel: ", currentLvl1)
+                posXY(23,16)
+                print("• Supprimer la sauvegarde 2 (2)")
+                posXY(27,17)
+                print("Niveau actuel: ", currentLvl2)
+                posXY(23,19)
+                print("• Supprimer la sauvegarde 3 (3)")
+                posXY(27,20)
+                print("Niveau actuel: ", currentLvl3)
+                posXY(23,22)
+                print("• Quitter menu (0)")
+                choose=user_input([0,1,2,3],isPos=True,pos=[23,24])
+                if choose !=0:
+                    profils[0][choose-1]='1'
+                    write_save_file("save",profils)
+                print(colorama.Style.RESET_ALL)
 
 
 def menu_joueur_jeu(dir_possible):

@@ -1,4 +1,4 @@
-from os import read
+from os import read, sep
 from PIL import Image
 from numpy import*
 
@@ -9,14 +9,14 @@ Fonction pour gérer les entrées utilisateur
 - prend en argument:
         possibillity = une liste avec toute les possibilités
         typeIn = le type attendu : "String" pour une str()
-                                    "int" pour un int() -- par defaut 
-        isPos = si il y a une position False -- par defaut 
-        pos = position ou afficher [0,0] -- par defaut 
-- Renvoie : la valeur attendu en int ou str 
+                                    "int" pour un int() -- par defaut
+        isPos = si il y a une position False -- par defaut
+        pos = position ou afficher [0,0] -- par defaut
+- Renvoie : la valeur attendu en int ou str
     //ATTENTION on peut pas attendre "" ou -1//
 """
 def user_input(possibillity,isPos=False,pos=[0,0]):
-    #tant que l'on est pas sortie 
+    #tant que l'on est pas sortie
     while(1):
         try:
             if isPos :
@@ -30,13 +30,13 @@ def user_input(possibillity,isPos=False,pos=[0,0]):
                 return(inp)
             else:
                 pass
-        except: 
+        except:
             pass
 """
 Fonction pour gérer les entrées utilisateur
 - prend en argument:
-        pos = position ou afficher [0,0] -- par defaut 
-- Renvoie : la valeur attendu en str 
+        pos = position ou afficher [0,0] -- par defaut
+- Renvoie : la valeur attendu en str
     //ATTENTION on peut pas attendre "" ou -1//
 """
 def user_input_str(pos):
@@ -53,7 +53,7 @@ def user_input_str(pos):
 """
 Outils pour récupérer le labyrinthe a partir du fichier bitmap
 arguments :
-    - Le numéro du labyrinthe a charger sur un entier 
+    - Le numéro du labyrinthe a charger sur un entier
 retourne :
     - Une liste a deux dim contenant les mur et passages du labyrinthe
 
@@ -65,7 +65,7 @@ def recupLab(nb):
     #Nouvelle liste de la même taille que A
     arraylab=[[None for t in range(len(arrayBmp[i]))]for i in range(len(arrayBmp))]
     #Convertir les True en 1 et les False en 0
-    #Peut-être ammener a changer 
+    #Peut-être ammener a changer
     for i in range(len(arrayBmp)):
         for j in range(len(arrayBmp[i])):
             if arrayBmp[i][j]==True:
@@ -77,10 +77,10 @@ def recupLab(nb):
 
 """
 Outils pour récupérer la position initiale du joueur et du gladiateur dans le lab:
-argument : 
-    - un entier avec le numéro du labyrinthe a charger 
+argument :
+    - un entier avec le numéro du labyrinthe a charger
 retourne :
-    - une liste a deux dimensions contenant les position X-Y du glad puis du joueur 
+    - une liste a deux dimensions contenant les position X-Y du glad puis du joueur
 """
 def recup_pos_file(nb):
     #Ouvrir le fichier contenant les position
@@ -99,10 +99,10 @@ def recup_pos_file(nb):
 
 """
 Outils pour le fichier save:
-argument : 
-    - le nom du fichier a lire 
+argument :
+    - le nom du fichier a lire
 retourne :
-    - 3 liste avec le labyrinthe en cours, la position en cours du gladiateur 
+    - 3 liste avec le labyrinthe en cours, la position en cours du gladiateur
       et la position en cours du joueur
 """
 def read_save_file(fichier):
@@ -129,12 +129,9 @@ def testSaveExist(fichier,saveName):
 
 def write_save_file(fichier,listn):
     f = open(fichier, "w")
-    for i in range(len(listn)):
-        if i != 0:
-            f.write(';')
-        f.write(listn[i][0]+','+str(listn[i][1]))
-    
-    
+    f.write("S1:"+listn[0][0]+"-"+listn[1][0]+"-"+listn[2][0]+";"+"S2:"+listn[0][1]+"-"+listn[1][1]+"-"+listn[2][1]+";"+"S3:"+listn[0][2]+"-"+listn[1][2]+"-"+listn[2][2]+";")
+
+
 
 if __name__ == "__main__":
     print(write_save_file("save",[["billie",5],["max",7]]))
