@@ -47,6 +47,13 @@ def menu():
                 return choixLaby
             #si choixLaby = 0, retour au menu de base
 
+'''
+Cette fonction permet de propser au joueur les mouvement qui lui sont disponible
+argument :
+    - Liste contenant les direction possible
+retourne :
+    - le sens choisi par le joueur
+'''
 
 def menu_joueur_jeu(dir_possible):
     nomDir = ["Est","Ouest","Nord","Sud"]
@@ -61,7 +68,18 @@ def menu_joueur_jeu(dir_possible):
             possibility.append(i+1)
     print("(10) - Quitter")
     return(user_input(possibility,"int",True,[0,34+len(dir_possible)]))
-    
+
+'''
+Fonctoin qui affiche le leaderBoard 
+argument :
+    - rien 
+retourne :
+    - rien 
+
+'''
+def leaderboard():
+    pass
+
 
 if __name__ == "__main__":
     print(menu())
