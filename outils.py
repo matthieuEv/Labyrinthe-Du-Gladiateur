@@ -99,3 +99,13 @@ def recup_pos_file(nb):
             posXY[entity][pos]=int(lstPos[entity].split('-')[pos+1])
     #Retourner les bonne valeur pour chaque entité
     return(posXY)
+
+"""
+Fonction qui permet de récupérer les meilleurs score:
+argument :
+    - rien 
+retourne :
+    - une liste avec les meilleurs scores
+"""
+def recupLeaderboard():
+    return (open('leaderboard','r').readlines()[0].split(','))
