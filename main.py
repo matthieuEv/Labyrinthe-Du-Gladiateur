@@ -36,6 +36,8 @@ if __name__ == "__main__":
         fin_de_jeu = False
         tour_Joueur = True
         updateScreen()
+        #Nombre de tour fait par le joueur 
+        nb_tour = 0
         while (not(fin_de_jeu)):
             if tour_Joueur:
                 #TOUR DU JOUEUR 
@@ -60,6 +62,8 @@ if __name__ == "__main__":
                     #Update de la position réel 
                     posEntXY[1]=newPosPlayer
                 tour_Joueur = False
+                #On icremente le nombre de tour 
+                nb_tour+=1
             else:
                 #TOUR DU GLADIATEUR 
                 for i in range(2):
@@ -84,6 +88,7 @@ if __name__ == "__main__":
                 #clear_down()
                 fin_de_jeu = True
                 pgGraphEndGame(ecran,True)
+                #WIP NewBest
                 closePygame()
             elif checkmort(posEntXY):
                 #clear_down()
