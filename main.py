@@ -3,7 +3,7 @@ Le labyrinthe du gladiateur :
 @author Matthieu,Elouan
 '''
 
-from color import afficher_lab, clear_down,graph_deplacement_entite, graph_mort, posXY
+from color import afficher_lab, clear_down,graph_deplacement_entite, graph_mort
 from menu import menu, menu_joueur_jeu
 from outils import recupLab,recup_pos_file
 from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
