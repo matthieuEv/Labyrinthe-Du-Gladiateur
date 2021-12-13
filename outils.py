@@ -6,14 +6,15 @@ from color import posXY
 
 """
 Fonction pour gérer les entrées utilisateur
-- prend en argument:
+@param:
         possibillity = une liste avec toute les possibilités
         typeIn = le type attendu : "String" pour une str()
                                     "int" pour un int() -- par defaut
         isPos = si il y a une position False -- par defaut
         pos = position ou afficher [0,0] -- par defaut
-- Renvoie : la valeur attendu en int ou str
+@return : la valeur attendu en int ou str
     //ATTENTION on peut pas attendre "" ou -1//
+@author Elouan Matthieu
 """
 def user_input(possibillity,isPos=False,pos=[0,0]):
     #tant que l'on est pas sortie
@@ -34,10 +35,11 @@ def user_input(possibillity,isPos=False,pos=[0,0]):
             pass
 """
 Fonction pour gérer les entrées utilisateur
-- prend en argument:
+@param:
         pos = position ou afficher [0,0] -- par defaut
-- Renvoie : la valeur attendu en str
+@return : la valeur attendu en str
     //ATTENTION on peut pas attendre "" ou -1//
+@author Matthieu
 """
 def user_input_str(pos):
     while(1):
@@ -52,11 +54,11 @@ def user_input_str(pos):
 
 """
 Outils pour récupérer le labyrinthe a partir du fichier bitmap
-arguments :
+@params :
     - Le numéro du labyrinthe a charger sur un entier
-retourne :
+@return :
     - Une liste a deux dim contenant les mur et passages du labyrinthe
-
+@author Elouan
 """
 def recupLab(nb):
     temp=Image.open("labs/"+str(nb)+".bmp")
@@ -77,10 +79,11 @@ def recupLab(nb):
 
 """
 Outils pour récupérer la position initiale du joueur et du gladiateur dans le lab:
-argument :
+@param :
     - un entier avec le numéro du labyrinthe a charger
-retourne :
+@return :
     - une liste a deux dimensions contenant les position X-Y du glad puis du joueur
+@author Elouan
 """
 def recup_pos_file(nb):
     #Ouvrir le fichier contenant les position
@@ -99,11 +102,12 @@ def recup_pos_file(nb):
 
 """
 Outils pour le fichier save:
-argument :
+@param :
     - le nom du fichier a lire
-retourne :
+@return :
     - 3 liste avec le labyrinthe en cours, la position en cours du gladiateur
       et la position en cours du joueur
+@author Matthieu
 """
 def read_save_file(fichier):
     with open(fichier,"r") as file:
@@ -120,10 +124,16 @@ def read_save_file(fichier):
 
         return currentLab,posLabGlad,posLabPlay
 
+"""
+@author Matthieu
+"""
 def write_save_file(fichier,listn):
     f = open(fichier, "w")
     f.write("S1:"+listn[0][0]+"-"+listn[1][0]+"-"+listn[2][0]+";"+"S2:"+listn[0][1]+"-"+listn[1][1]+"-"+listn[2][1]+";"+"S3:"+listn[0][2]+"-"+listn[1][2]+"-"+listn[2][2]+";")
 
+"""
+@author Matthieu
+"""
 def addLab(currentSave):
     profils = read_save_file("save")
     profils[0][currentSave-1]=str((int(profils[0][currentSave-1])+1))
@@ -132,21 +142,23 @@ def addLab(currentSave):
 
 """
 Fonction qui permet de récupérer les meilleurs score:
-argument :
+@param :
     - rien 
-retourne :
+@return :
     - une liste avec les meilleurs scores
+@author Elouan
 """
 def recupLeaderboard():
     return (open('leaderboard','r').readlines()[0].split(','))
 
 """
 Fonction qui écrit le score si il est meilleur que l'ancien
-argument: 
+@param: 
     - le numéro du lab
     - le Nombre de tour 
-retourne:
+@return:
     - un texte si le score est un nouveau meilleur 
+@author Elouan
 """
 def newBest(nbLab,nbTour):
     ldb = recupLeaderboard()
