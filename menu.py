@@ -96,6 +96,7 @@ def menu():
                 choose=user_input([0,1,2,3],isPos=True,pos=[23,24])
                 if choose !=0:
                     return choose
+                    print(colorama.Style.RESET_ALL)
                 print(colorama.Style.RESET_ALL)
 
             if choose == 2: #supprimer la sauvegarde
@@ -125,6 +126,7 @@ def menu():
                 if choose !=0:
                     profils[0][choose-1]='1'
                     write_save_file("save",profils)
+                    print(colorama.Style.RESET_ALL)
                 print(colorama.Style.RESET_ALL)
 
 
