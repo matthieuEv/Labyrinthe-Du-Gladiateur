@@ -131,7 +131,37 @@ def write_save_file(fichier,listn):
     f = open(fichier, "w")
     f.write("S1:"+listn[0][0]+"-"+listn[1][0]+"-"+listn[2][0]+";"+"S2:"+listn[0][1]+"-"+listn[1][1]+"-"+listn[2][1]+";"+"S3:"+listn[0][2]+"-"+listn[1][2]+"-"+listn[2][2]+";")
 
+def addLab(currentSave):
+    profils = read_save_file("save")
+    profils[0][currentSave-1]=str((int(profils[0][currentSave-1])+1))
+    write_save_file("save",profils)
 
 
-if __name__ == "__main__":
-    print(write_save_file("save",[["billie",5],["max",7]]))
+"""
+Fonction qui permet de récupérer les meilleurs score:
+argument :
+    - rien 
+retourne :
+    - une liste avec les meilleurs scores
+"""
+def recupLeaderboard():
+    return (open('leaderboard','r').readlines()[0].split(','))
+
+"""
+Fonction qui écrit le score si il est meilleur que l'ancien
+argument: 
+    - le numéro du lab
+    - le Nombre de tour 
+retourne:
+    - un texte si le score est un nouveau meilleur 
+"""
+def newBest(nbLab,nbTour):
+    ldb = recupLeaderboard()
+    if (nbTour<int(ldb[nbLab-1])):
+        ldb[nbLab-1]=str(nbTour)
+        file = open('leaderboard','w')
+        for i in range(len(ldb)):
+            file.write((","+ldb[i])if i!=0 else(ldb[i]))
+        return("Nouveau meilleur !")
+    else:
+        return('')
