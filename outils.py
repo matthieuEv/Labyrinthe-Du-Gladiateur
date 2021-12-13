@@ -120,13 +120,6 @@ def read_save_file(fichier):
 
         return currentLab,posLabGlad,posLabPlay
 
-def testSaveExist(fichier,saveName):
-    lst = read_save_file(fichier)
-    for i in range(len(lst)):
-        if (lst[i][0]).lower() == saveName.lower():
-            return True
-    return False
-
 def write_save_file(fichier,listn):
     f = open(fichier, "w")
     f.write("S1:"+listn[0][0]+"-"+listn[1][0]+"-"+listn[2][0]+";"+"S2:"+listn[0][1]+"-"+listn[1][1]+"-"+listn[2][1]+";"+"S3:"+listn[0][2]+"-"+listn[1][2]+"-"+listn[2][2]+";")
@@ -165,3 +158,12 @@ def newBest(nbLab,nbTour):
         return("Nouveau meilleur !")
     else:
         return('')
+
+def updatePos(PosXY,currentSave):
+    profils = read_save_file("save")
+    profils[1][currentSave-1]=str(PosXY[0])
+    profils[2][currentSave-1]=str(PosXY[1])
+    write_save_file("save",profils)
+
+if __name__ == "__main__":
+    print(read_save_file("save"))

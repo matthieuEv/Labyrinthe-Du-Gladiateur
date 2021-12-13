@@ -5,7 +5,7 @@ Le labyrinthe du gladiateur :
 
 from color import afficher_lab, clear_down,graph_deplacement_entite, graph_mort
 from menu import menu, menu_joueur_jeu
-from outils import addLab, newBest, recupLab,recup_pos_file, write_save_file
+from outils import addLab, newBest, recupLab,recup_pos_file, updatePos
 from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
 
@@ -40,6 +40,7 @@ if __name__ == "__main__":
         #Nombre de tour fait par le joueur 
         nb_tour = 0
         while (not(find_de_jeu)):
+            updatePos(posEntXY,histoire)
             if tour_Joueur:
                 #TOUR DU JOUEUR 
                 #Verification des mur autour du joueur
