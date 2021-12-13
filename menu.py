@@ -140,7 +140,7 @@ def menu_joueur_jeu(dir_possible):
             print("(%d) - %s"%(i+1,nomDir[i]))
             possibility.append(i+1)
     print("(10) - Quitter")
-    return(user_input(possibility,"int",True,[0,34+len(dir_possible)]))
+    return(user_input(possibility,True,[0,34+len(dir_possible)]))
     
 
 if __name__ == "__main__":
