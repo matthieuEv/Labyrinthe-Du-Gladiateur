@@ -2,17 +2,20 @@
 Le labyrinthe du gladiateur :
 @author Matthieu,Elouan
 '''
+from outils import recupLab,recup_pos_file,newBest,addLab, newBest, recupLab,recup_pos_file
 from menu import menu
-from outils import recupLab,recup_pos_file,newBest
 from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
 from pygameFile import closePygame, eventArrow, fondDecran, getEvent, pgAfficherLab, pgDeplacementEntite, pgGraphEndGame, pgInit, updateScreen
 
+histoire=0
 if __name__ == "__main__":
     #tant que le joueur ne choisi pas de sortir depuis le menu 
     while (True):
-        #Ouverture du menu et récupération du choi du joueur 
-        nbLab = menu()
+        if not(histoire):
+            #Ouverture du menu et récupération du choi du joueur 
+            nbLab,histoire = menu()
+
                 #Début du jeu 
         #Intialisation du Jeu
         #Initialisation des variable
@@ -53,6 +56,7 @@ if __name__ == "__main__":
                 #Si le joueur a choisi 0 == Ne pas bouger
                 if sensJoueur == 10:
                     fin_de_jeu=True
+                    histoire=0
                 elif (sensJoueur in [i for i in range(1,5)]): 
                     #On stocke la nouvelle position dans une variable:
                     newPosPlayer = deplacement_entite(sensJoueur,posEntXY[1])
@@ -89,6 +93,10 @@ if __name__ == "__main__":
                 fin_de_jeu = True
                 best = (False if newBest(nbLab,nb_tour)=='' else True)
                 pgGraphEndGame(ecran,True,best)
+                if histoire:
+                    addLab(histoire)
+                    #si est pas en mode histoire on aura besoin du lab suivant
+                    nbLab=(nbLab+1 if nbLab<12 else nbLab)
                 closePygame()
             elif checkmort(posEntXY):
                 #clear_down()
