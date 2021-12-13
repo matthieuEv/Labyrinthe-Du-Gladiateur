@@ -34,12 +34,13 @@ def clear_down ():
         print('\n',end='')
 """
 Fonction pour changer le personnage a la fin du jeu
-argument: 
+@param: 
     - liste a deux dim contenant le tableau 
     - liste avec les position pour afficher l'emoji
     - Un boolean a True si victoire
-retourne :
+@return :
     - rien 
+@author Elouan
 """
 def graph_mort(tabLab,posafficher,vict):
     depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
@@ -54,11 +55,12 @@ def graph_mort(tabLab,posafficher,vict):
 
 '''
 Fonction qui affiche le labytinthe
-// Cette fonction n'affiche pour l'instant que le lab Vide //
-Argument en entré : 
+// Cette fonction n'affiche que le lab Vide //
+@param en entré : 
     - tableau  deux dimensions qui contient le lab a afficher 
-Retoure :
+@return :
     - rien 
+@author Elouan
 '''
 def afficher_lab (tabLab):
     #Clear la console 
@@ -101,7 +103,7 @@ def afficher_lab (tabLab):
 
 '''
 Fonction qui gère l'affichage d'un déplacement d'entité
-Arguments:
+@params:
     - La liste a deux dim contenant le tableau du lab
     - un entier contenant l'entite a afficher :
         - 0 = gladiateur
@@ -109,8 +111,9 @@ Arguments:
     - position de d'arrive = liste a deux dim X-Y 
     - position de départ = liste a deux dim X-Y 
         //Par defaut a -1 si pas de valeur de départ//
-retourne :
+@return :
     rien 
+@author Elouan
 '''
 def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
     depXY = [TAILLE_PLATEAU_X//2 - len(tabLab[0]),TAILLE_PLATEAU_Y//2 - len(tabLab)//2]
@@ -132,10 +135,11 @@ def graph_deplacement_entite(tabLab,entite,posArr,posDep=[-1,-1]):
 
 """
 Créée le fond d'écran du menu
-Arguments:
+@params:
     - None
-Return:
+@return:
     - None
+@author Matthieu
 """
 def background():
     for x in range(TAILLE_PLATEAU_X):

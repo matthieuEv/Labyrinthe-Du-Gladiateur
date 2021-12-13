@@ -5,7 +5,7 @@ Fichier contenant les fonctions qui servirons a la logique et au déroulement du
 '''
 Fonction permettant d'éffectuer un déplacement d'une entité
 //La vérification de si le déplacement est possible doit être fait avant//
-Arguments : 
+@params : 
     - Le choix du sens de déplacement int()
         - 0 = ne bouge pas 
         - 1 = est 
@@ -15,8 +15,9 @@ Arguments :
     - La liste à 2 dim avec la position du joueur :
             - [0] = position sur X 
             - [1] = position sur y
-retourne :
+@return :
     - la liste à contenant la position du joueur mis à jour
+@author Elouan
 '''
 def deplacement_entite(sens,poXY):
     #On gère le cas de chaque sens 
@@ -33,35 +34,38 @@ def deplacement_entite(sens,poXY):
 
 """
 Fonction de test de mort du joueur 
-arguments : 
+@params : 
     - liste a Deux dim contenant les position du glad et du joueur 
-retourne :
+@return :
     - True si le joueur et le glad sont sur la même case sinon False
+@author Elouan
 """
 def checkmort (posEntiteXY):
     return((posEntiteXY[0][0]==posEntiteXY[1][0]) and (posEntiteXY[0][1]==posEntiteXY[1][1]))
 """
 Fonction de test de mort du joueur 
-arguments : 
+@params : 
     - liste a Deux dim contenant le labyrinthe
     - une liste contenant la position du joueur
-retourne :
+@return :
     - True si le joueur et le glad sont sur la même case sinon False
+@author Elouan
 """
 def checkWin (tabLab,posXY):
     return(posXY[0]>=len(tabLab[0]) or posXY[1]>=len(tabLab) or posXY[0]<=0 or posXY[1]<=0)
 
 '''
 Fonction qui vérifie la présence de mur 
-argument :
+@param :
     - liste a deux dim contenant le labyrinthe 
     - liste XY contenant la position de l'entite a tester
-retourne :
+@return :
     - liste des sens de deplacemnt possible True and False
         - [0] = est 
         - [1] = Ouest
         - [2] = Nord
         - [3] = sud 
+@author Elouan
 '''
 def check_mur (tabLab,posEnti):
     #On crée la variable de reception 
@@ -76,26 +80,20 @@ def check_mur (tabLab,posEnti):
     if not(tabLab[posEnti[1]+1][posEnti[0]]):
         sens_dispo[3] = True
     return(sens_dispo)
-    '''Alternative xD
-    for axe in range(2):
-        for cote in range(2):
-            if not(tabLab[posEnti[1]+(axe*(-1+(cote*2)))][posEnti[0]+((0 if axe else 1)*(-1+(cote*2)))]):
-                sens_dispo[axe*2+(cote*1 if axe else (0 if cote else 1))] = True
-    return(sens_dispo)
-    '''
 
 '''
 Fonction de choix de direction pour le glad
-argument : 
+@param : 
     - liste de taille 4 avec les déplacement possible
     - liste deux dim avec les position du glad [0] et du joueur [1]
-retourne :
+@return :
     - un entier avec la direction que doit prendre le glad 
         - 0 = ne bouge pas 
         - 1 = est 
         - 2 = Ouest
         - 3 = Nord
         - 4 = sud
+@author Elouan
 '''
 def choix_dep_glad(dir_possible,posEntiXY):
     #On crée une variable pour le sens a renvoyer 

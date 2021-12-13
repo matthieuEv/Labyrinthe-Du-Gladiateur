@@ -5,7 +5,9 @@ from outils import read_save_file, user_input, recupLeaderboard, write_save_file
 from color import clear,posXY,init,clear_down,background
 from colorama import Fore, Back
 
-
+"""
+@author Matthieu
+"""
 def menu():
     init()
     while(1):
@@ -133,10 +135,11 @@ def menu():
 
 '''
 Cette fonction permet de propser au joueur les mouvement qui lui sont disponible
-argument :
+@param :
     - Liste contenant les direction possible
-retourne :
+@return :
     - le sens choisi par le joueur
+@author Elouan
 '''
 def menu_joueur_jeu(dir_possible):
     nomDir = ["Est","Ouest","Nord","Sud"]
@@ -154,11 +157,11 @@ def menu_joueur_jeu(dir_possible):
 
 '''
 Fonctoin qui affiche le leaderBoard 
-argument :
+@param :
     - rien 
-retourne :
+@return :
     - rien 
-
+@author Elouan
 '''
 def leaderboard():
     clear()
