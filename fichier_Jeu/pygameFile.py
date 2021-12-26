@@ -57,7 +57,7 @@ retourne :
 """
 def fondDecran(screen):
     screen.fill(BLUE)
-    pygame.draw.rect(screen,LIGHTBLUE,pygame.Rect(30,30,(1280-60),(720-60)))
+    pygame.draw.rect(screen,LIGHTBLUE,pygame.Rect(30,30,(LARGEUR-60),(HAUTEUR-60)))
 
 """
 Fonction qui affiche un lab 
@@ -128,6 +128,9 @@ retourne :
     - le numéro de la direction choisi 
 """
 def eventArrow(e,dir):
+    if e.type == pygame.QUIT:
+        closePygame()
+        return(10)
     if e.type == pygame.KEYUP:
         if (e.key == ord('d') and dir[0]):
             return(1)
