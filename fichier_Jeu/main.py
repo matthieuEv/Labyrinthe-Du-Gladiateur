@@ -8,16 +8,18 @@ from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_
 from time import sleep
 from pygameFile import eventArrow, fondDecran, getEvent, pgAfficherLab, pgDeplacementEntite, pgGraphEndGame, pgInit, updateScreen
 
-histoire=0
 if __name__ == "__main__":
+    histoire=0
+    rejoue=False
     #Creation de l'écran
     ecran = pgInit()
     #tant que le joueur ne choisi pas de sortir depuis le menu 
     while (True):
-        if not(histoire):
+        if (not(histoire) and not(rejoue)):
             #Ouverture du menu et récupération du choi du joueur 
             nbLab,histoire = menuPygame(ecran)
                 #Début du jeu 
+        rejoue = False
         #Intialisation du Jeu
         #Initialisation des variable
         """
@@ -92,7 +94,7 @@ if __name__ == "__main__":
                 #clear_down()
                 fin_de_jeu = True
                 best = (False if newBest(nbLab,nb_tour)=='' else True)
-                pgGraphEndGame(ecran,True,best)
+                rejoue = pgGraphEndGame(ecran,True,best)
                 if histoire:
                     addLab(histoire)
                     #si est pas en mode histoire on aura besoin du lab suivant
@@ -100,15 +102,8 @@ if __name__ == "__main__":
             elif checkmort(posEntXY):
                 #clear_down()
                 fin_de_jeu = True
-                pgGraphEndGame(ecran,False)
+                rejoue = pgGraphEndGame(ecran,False)
+                histoire = (histoire if rejoue else 0)
             elif not(fin_de_jeu):
                 updateScreen()
-            #Fin de la Manche                  
-        #For now we just leave :
-        
-
-    
-
-
-
-
+            #Fin de la Manche

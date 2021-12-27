@@ -1,5 +1,5 @@
 import pygame
-from pygame.constants import  K_DOWN, K_RETURN, K_SPACE, K_UP, K_RIGHT, K_LEFT, K_m, K_s, K_z, K_q, K_d, K_m
+from pygame.constants import  K_DOWN, K_RETURN, K_SPACE, K_UP, K_RIGHT, K_LEFT, K_m, K_r, K_s, K_z, K_q, K_d, K_m
 import os
 
 #Taille
@@ -169,18 +169,29 @@ retourne :
 """
 def  pgGraphEndGame(screen,vict,best=False):
     pygame.font.init()
-    myfont = pygame.font.SysFont('Comic Sans MS', 50)
+    myfont = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),50)
+    myfont2 = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),30)
     if vict : 
         textsurface = myfont.render('WIN', False, (0, 0, 0))
+        textsurface2 = myfont2.render('Appuyer sur Entre pour continer',False,(0,0,0))
             
     else:
         textsurface = myfont.render('LOOSE', False, (0, 0, 0))
+        textsurface2 = myfont2.render('Appuyer sur Entre pour continer et R pour recommencer',False,(0,0,0))
     screen.blit(textsurface,(575,50))
+    
     if best:
-        screen.blit(pygame.font.SysFont('Comic Sans MS',30).render('Nouveau meilleur',False,(0,0,0)),(575,670))
-    screen.blit(pygame.font.SysFont('Comic Sans MS',30).render('Appuyer sur une touche pour continer',False,(0,0,0)),(850,700))
+        screen.blit(myfont.render('Nouveau meilleur',False,(0,0,0)),(575,670))
+    screen.blit(textsurface2,(LARGEUR-textsurface2.get_width()-30,700))
     updateScreen()
-    event=[]
-    while(not(event)):
-        event = getEvent()
-    return()
+    rep = True
+    while(rep):
+        for event in getEvent():
+            if event.type == pygame.QUIT:
+                closePygame()
+                exit()
+            elif event.type == pygame.KEYUP:
+                if (event.key in [K_SPACE,K_RETURN]):
+                    return(False)
+                elif (event.key == K_r and not(vict)):
+                    return(True)
