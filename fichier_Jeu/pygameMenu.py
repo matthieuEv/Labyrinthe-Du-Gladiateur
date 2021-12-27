@@ -4,6 +4,7 @@ import os
 from pygameFile import HAUTEUR,LARGEUR,TAILLE_CARRE,WHITE,LIGHTBLUE,BLUE,GREEN,DARKGREEN,BLACK,RED,YELLOW,PINK,PURPLE
 #Import des fonction
 from pygameFile import getEvent,fondDecran,updateScreen,closePygame
+from outils import write_save_file,read_save_file,recupLeaderboard
 
 '''
 fonction Principale des menus
@@ -21,11 +22,13 @@ def menuPygame(screen):
         if rep == 0:
             r  = menuArcade(screen)
             if (r != 0):
-                return(r)
+                return(r,0)
         elif rep == 1:
-            pass
+            r,hist  = menuHistoire(screen)
+            if (r != 0):
+                return(r,hist)
         elif rep == 2:
-            pass
+            leaderboardPygame(screen)
     #Quitter le jeuÒ
     if rep == 3:
         closePygame()
@@ -132,6 +135,112 @@ def menuArcade(screen):
                     rep = False
     return((place[1]+1)+6*place[0] if place[0]!=2 else 0)
 
+"""
+fonction qui permet d'afficher le mode histoire:
+@param
+    - l'écran dans screen
+@return 
+    - int aveec le numéro du lab ou 0 si retour
+    - le numéro du mode histoire 
+"""
+def menuHistoire(screen):
+    base(screen)
+    fo = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),30)
+
+    rep,action = True,False
+    ligne,oldLigne = 0, -1
+    while(rep):
+        profils = read_save_file("save")
+        txt = ['Sauvgarde N°1 - '+str(read_save_file("save")[0][0]),'Sauvgarde N°2 - '+str(read_save_file("save")[0][1]),'Sauvgarde N°3 - '+str(read_save_file("save")[0][2]),'Retour','Play','Supr'] 
+        objtxt = [fo.render(txt[i],False,(0,0,0)) for i in range(6)]
+        pos = [200,300,400,550]
+        for i in range (3):
+            screen.blit(objtxt[i],((LARGEUR//2)-objtxt[i].get_width(),pos[i]))
+        screen.blit(objtxt[3],((LARGEUR//2)-objtxt[3].get_width()//2,pos[3]))
+        if oldLigne!= -1:
+            pygame.draw.rect(screen,LIGHTBLUE,pygame.Rect(((LARGEUR//2-objtxt[oldLigne].get_width()-25),pos[oldLigne],20,20)))
+        screen.blit(pygame.image.load(os.path.join('resources/arrow.png')),((LARGEUR//2-objtxt[ligne].get_width()-25),pos[ligne]))
+        updateScreen()
+        for event in getEvent():
+            if event.type == pygame.QUIT:
+                closePygame()
+                exit()
+            if event.type == pygame.KEYUP:
+                if (event.key == ord('z') and ligne!=0):
+                    oldLigne = ligne
+                    ligne -= 1
+                elif (event.key == ord('s') and ligne != 3):
+                    oldLigne = ligne
+                    ligne += 1
+                elif (event.key == ord(' ')):
+                    if ligne != 3:
+                        action = True
+                        case, oldcase = 0,-1
+                        screen.blit(objtxt[4],((LARGEUR//2)+40,pos[ligne]))
+                        screen.blit(objtxt[5],((LARGEUR//2)+objtxt[4].get_width()+80,pos[ligne]))
+                    else:
+                        rep =False
+        while(action):
+            pygame.draw.rect(screen,LIGHTBLUE,pygame.Rect(((LARGEUR//2-objtxt[ligne].get_width()-25),pos[ligne],20,20)))
+            if oldcase!= -1:
+                pygame.draw.rect(screen,LIGHTBLUE,pygame.Rect(((LARGEUR//2+15+((objtxt[4].get_width()+40) if case==0 else 0)),pos[ligne],20,20)))
+            screen.blit(pygame.image.load(os.path.join('resources/arrow.png')),(LARGEUR//2+15+((objtxt[4].get_width()+40)if case == 1 else 0),pos[ligne]))
+            updateScreen()
+            for event in getEvent():
+                if event.type == pygame.QUIT:
+                    closePygame()
+                    exit()
+                if event.type == pygame.KEYUP:
+                    if (event.key == ord('q') and case == 1):
+                        oldcase = case
+                        case = 0
+                    elif (event.key == ord('d') and case == 0):
+                        oldcase = case
+                        case = 1
+                    elif (event.key == ord(' ')):
+                        if case:
+                            profils[0][ligne]='1'
+                            write_save_file("save",profils)
+                            action=False
+                            base(screen)
+                            pygame.draw.rect(screen,LIGHTBLUE,pygame.Rect(((LARGEUR//2+15+objtxt[4].get_width()+40,pos[ligne],20,20))))
+                        else:
+                            rep,action=False,False
+    if ligne==3:
+        return(0,0)
+    else:
+        return(int(profils[0][ligne]),ligne)
+'''
+Fonction qui permet l'affichage du leaderboard 
+@param
+    - screen comprenant l'écran
+@return 
+    - rien
+'''
+def leaderboardPygame(screen):
+    base(screen)
+    lstLead = recupLeaderboard()
+    fo = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),30)
+    text = [[str('|'+ str(i) + ' - '+str('Vide' if lstLead[i-1]=='999' else lstLead[i-1])) for i in range(1,7)],[str('|'+ str(i)+ ' - '+str('Vide' if lstLead[i-1]=='999' else lstLead[i-1])) for i in range(7,13)]]
+    objtxt = [[fo.render(text[0][i],False,(0,0,0)) for i in range(6)],[fo.render(text[1][i],False,(0,0,0)) for i in range(6)]]
+    ecart = (1280-60)//7 
+    pos = [[[ecart+i*ecart,300+t*200] for i in range(6)] for t in range(2)]
+    for ligne in range(2):
+        for case in range(6):
+            screen.blit(objtxt[ligne][case],(pos[ligne][case][0]-objtxt[ligne][case].get_width()//2,pos[ligne][case][1]))
+    screen.blit(fo.render('Retour',False,(0,0,0)),((LARGEUR//2)-fo.render('Retour',False,(0,0,0)).get_width()//2,650))
+    screen.blit(pygame.image.load(os.path.join('resources/arrow.png')),((LARGEUR//2)-fo.render('Retour',False,(0,0,0)).get_width(),650))
+    updateScreen()
+
+    rep = True
+    while(rep):
+        for event in getEvent():
+                if event.type == pygame.QUIT:
+                    closePygame()
+                    exit()
+                elif event.type == pygame.KEYUP:
+                    if (event.key == ord(' ')):
+                        rep = False
 
 '''
 fonction qui efface l'ecran et affiche le titre :
