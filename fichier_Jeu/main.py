@@ -3,19 +3,20 @@ Le labyrinthe du gladiateur :
 @author Matthieu,Elouan
 '''
 from outils import recupLab,recup_pos_file,newBest,addLab, newBest, recupLab,recup_pos_file
-from menu import menu
+from pygameMenu import menuPygame
 from logique import check_mur, checkWin, checkmort, choix_dep_glad, deplacement_entite
 from time import sleep
-from pygameFile import closePygame, eventArrow, fondDecran, getEvent, pgAfficherLab, pgDeplacementEntite, pgGraphEndGame, pgInit, updateScreen
+from pygameFile import eventArrow, fondDecran, getEvent, pgAfficherLab, pgDeplacementEntite, pgGraphEndGame, pgInit, updateScreen
 
 histoire=0
 if __name__ == "__main__":
+    #Creation de l'écran
+    ecran = pgInit()
     #tant que le joueur ne choisi pas de sortir depuis le menu 
     while (True):
         if not(histoire):
             #Ouverture du menu et récupération du choi du joueur 
-            nbLab,histoire = menu()
-
+            nbLab,histoire = menuPygame(ecran)
                 #Début du jeu 
         #Intialisation du Jeu
         #Initialisation des variable
@@ -28,7 +29,6 @@ if __name__ == "__main__":
         lab = recupLab(nbLab)
         posEntXY = recup_pos_file(nbLab)
         #affichage du plateau
-        ecran = pgInit()
         fondDecran(ecran)
         pgAfficherLab(ecran,lab)
         for enti in range(2):
@@ -97,12 +97,10 @@ if __name__ == "__main__":
                     addLab(histoire)
                     #si est pas en mode histoire on aura besoin du lab suivant
                     nbLab=(nbLab+1 if nbLab<12 else nbLab)
-                closePygame()
             elif checkmort(posEntXY):
                 #clear_down()
                 fin_de_jeu = True
                 pgGraphEndGame(ecran,False)
-                closePygame()
             elif not(fin_de_jeu):
                 updateScreen()
             #Fin de la Manche                  

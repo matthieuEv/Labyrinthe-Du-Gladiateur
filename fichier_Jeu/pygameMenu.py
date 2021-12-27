@@ -26,7 +26,7 @@ def menuPygame(screen):
         elif rep == 1:
             r,hist  = menuHistoire(screen)
             if (r != 0):
-                return(r,hist)
+                return(r,hist+1)
         elif rep == 2:
             leaderboardPygame(screen)
     #Quitter le jeuÒ

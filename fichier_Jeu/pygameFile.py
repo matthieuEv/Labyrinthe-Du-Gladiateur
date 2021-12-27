@@ -143,7 +143,6 @@ def eventArrow(e,dir):
         elif (e.key == ord(' ')):
             return(0)
         elif (e.key == ord('m')):
-            closePygame()
             return(10)
     return(-1)
 
