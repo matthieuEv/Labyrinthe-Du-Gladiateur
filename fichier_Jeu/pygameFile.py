@@ -1,4 +1,5 @@
 import pygame
+from pygame.constants import  K_DOWN, K_RETURN, K_SPACE, K_UP, K_RIGHT, K_LEFT, K_m, K_s, K_z, K_q, K_d, K_m
 import os
 
 #Taille
@@ -132,17 +133,17 @@ def eventArrow(e,dir):
         closePygame()
         return(10)
     if e.type == pygame.KEYUP:
-        if (e.key == ord('d') and dir[0]):
+        if ((e.key in [K_d,K_RIGHT]) and dir[0]):
             return(1)
-        elif (e.key == ord('q') and dir[1]):
+        elif ((e.key in [K_q,K_LEFT]) and dir[1]):
             return(2)
-        elif (e.key == ord('z') and dir[2]):
+        elif ((e.key in [K_z,K_UP]) and dir[2]):
             return(3)
-        elif (e.key == ord('s') and dir[3]):
+        elif ((e.key in [K_s,K_DOWN]) and dir[3]):
             return(4)
-        elif (e.key == ord(' ')):
+        elif ((e.key in [K_SPACE,K_RETURN])):
             return(0)
-        elif (e.key == ord('m')):
+        elif (e.key == K_m):
             return(10)
     return(-1)
 

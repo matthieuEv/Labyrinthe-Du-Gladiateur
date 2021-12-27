@@ -1,5 +1,7 @@
 import pygame
 import os
+
+from pygame.constants import  K_DOWN, K_RETURN, K_SPACE, K_UP, K_RIGHT, K_LEFT, K_s, K_z, K_q, K_d
 #import des constantes 
 from pygameFile import HAUTEUR,LARGEUR,TAILLE_CARRE,WHITE,LIGHTBLUE,BLUE,GREEN,DARKGREEN,BLACK,RED,YELLOW,PINK,PURPLE
 #Import des fonction
@@ -67,13 +69,13 @@ def menuPrincipal (screen):
                 closePygame()
                 exit()
             elif event.type == pygame.KEYUP:
-                if (event.key == ord('z') and ligne!=0):
+                if ((event.key in [K_z,K_UP]) and ligne!=0):
                     oldLigne = ligne
                     ligne -= 1
-                elif (event.key == ord('s') and ligne != 3):
+                elif ((event.key in [K_s,K_DOWN]) and ligne != 3):
                     oldLigne = ligne
                     ligne += 1
-                elif (event.key == ord(' ')):
+                elif (event.key in [K_SPACE,K_RETURN]):
                     rep = False
     return(ligne)
 
@@ -119,19 +121,19 @@ def menuArcade(screen):
                 closePygame()
                 exit()
             elif event.type == pygame.KEYUP:
-                if (event.key == ord('z') and place[0]!=0):
+                if ((event.key in [K_z,K_UP]) and place[0]!=0):
                     oldplace = [place[i] for i in range(len(place))]
                     place[0] -= 1 
-                elif (event.key == ord('s') and place[0] != 2):
+                elif ((event.key in [K_s,K_DOWN]) and place[0] != 2):
                     oldplace = [place[i] for i in range(len(place))]
                     place[0] += 1
-                elif (event.key == ord('q') and place[1] != 0):
+                elif ((event.key in [K_q,K_LEFT]) and place[1] != 0):
                     oldplace = [place[i] for i in range(len(place))]
                     place[1] -= 1
-                elif (event.key == ord('d') and place[1] != 5):
+                elif ((event.key in [K_d,K_RIGHT]) and place[1] != 5):
                     oldplace = [place[i] for i in range(len(place))]
                     place[1] += 1
-                elif (event.key == ord(' ')):
+                elif (event.key in [K_SPACE,K_RETURN]):
                     rep = False
     return((place[1]+1)+6*place[0] if place[0]!=2 else 0)
 
@@ -166,13 +168,13 @@ def menuHistoire(screen):
                 closePygame()
                 exit()
             if event.type == pygame.KEYUP:
-                if (event.key == ord('z') and ligne!=0):
+                if ((event.key in [K_z,K_UP]) and ligne!=0):
                     oldLigne = ligne
                     ligne -= 1
-                elif (event.key == ord('s') and ligne != 3):
+                elif ((event.key in [K_s,K_DOWN]) and ligne != 3):
                     oldLigne = ligne
                     ligne += 1
-                elif (event.key == ord(' ')):
+                elif (event.key in [K_SPACE,K_RETURN]):
                     if ligne != 3:
                         action = True
                         case, oldcase = 0,-1
@@ -191,13 +193,13 @@ def menuHistoire(screen):
                     closePygame()
                     exit()
                 if event.type == pygame.KEYUP:
-                    if (event.key == ord('q') and case == 1):
+                    if ((event.key in [K_q,K_LEFT]) and case == 1):
                         oldcase = case
                         case = 0
-                    elif (event.key == ord('d') and case == 0):
+                    elif ((event.key in [K_d,K_RIGHT]) and case == 0):
                         oldcase = case
                         case = 1
-                    elif (event.key == ord(' ')):
+                    elif (event.key in [K_SPACE,K_RETURN]):
                         if case:
                             profils[0][ligne]='1'
                             write_save_file("save",profils)
@@ -239,7 +241,7 @@ def leaderboardPygame(screen):
                     closePygame()
                     exit()
                 elif event.type == pygame.KEYUP:
-                    if (event.key == ord(' ')):
+                    if (event.key in [K_SPACE,K_RETURN]):
                         rep = False
 
 '''
