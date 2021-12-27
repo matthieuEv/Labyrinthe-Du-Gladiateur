@@ -94,7 +94,7 @@ if __name__ == "__main__":
                 #clear_down()
                 fin_de_jeu = True
                 best = (False if newBest(nbLab,nb_tour)=='' else True)
-                rejoue = pgGraphEndGame(ecran,True,best)
+                rejoue = pgGraphEndGame(ecran,True,(True if histoire else False),best)
                 if histoire:
                     addLab(histoire)
                     #si est pas en mode histoire on aura besoin du lab suivant

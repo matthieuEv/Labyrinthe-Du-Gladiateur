@@ -1,56 +1,5 @@
-from os import read, sep
 from PIL import Image
 from numpy import*
-
-from color import posXY
-
-"""
-Fonction pour gérer les entrées utilisateur
-@param:
-        possibillity = une liste avec toute les possibilités
-        typeIn = le type attendu : "String" pour une str()
-                                    "int" pour un int() -- par defaut
-        isPos = si il y a une position False -- par defaut
-        pos = position ou afficher [0,0] -- par defaut
-@return : la valeur attendu en int ou str
-    //ATTENTION on peut pas attendre "" ou -1//
-@author Elouan Matthieu
-"""
-def user_input(possibillity,isPos=False,pos=[0,0]):
-    #tant que l'on est pas sortie
-    while(1):
-        try:
-            if isPos :
-                posXY(pos[0],pos[1])
-                print("                    ",end='')
-                posXY(pos[0],pos[1])
-            print("--> ",end='')
-            inp = int(input())
-            #Si la réponse est au bon format et est dans la liste on la retourne
-            if inp in possibillity :
-                return(inp)
-            else:
-                pass
-        except:
-            pass
-"""
-Fonction pour gérer les entrées utilisateur
-@param:
-        pos = position ou afficher [0,0] -- par defaut
-@return : la valeur attendu en str
-    //ATTENTION on peut pas attendre "" ou -1//
-@author Matthieu
-"""
-def user_input_str(pos):
-    while(1):
-        posXY(pos[0],pos[1])
-        print("                    ",end='')
-        posXY(pos[0],pos[1])
-        print("--> ",end='')
-        inp = str(input())
-        #Si la réponse est au bon format et est dans la liste on la retourne
-        return(inp)
-
 
 """
 Outils pour récupérer le labyrinthe a partir du fichier bitmap

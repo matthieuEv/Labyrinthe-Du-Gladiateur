@@ -167,17 +167,19 @@ argument:
 retourne :
     - rien 
 """
-def  pgGraphEndGame(screen,vict,best=False):
+def  pgGraphEndGame(screen,vict,hist=False,best=False):
     pygame.font.init()
     myfont = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),50)
     myfont2 = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),30)
     if vict : 
         textsurface = myfont.render('WIN', False, (0, 0, 0))
-        textsurface2 = myfont2.render('Appuyer sur Entre pour continer',False,(0,0,0))
-            
+        if hist:
+            textsurface2 = myfont2.render('Appuyer sur Entre pour continer',False,(0,0,0))
+        else:
+            textsurface2 = myfont2.render('Appuyer sur Entre pour Quitter',False,(0,0,0))
     else:
         textsurface = myfont.render('LOOSE', False, (0, 0, 0))
-        textsurface2 = myfont2.render('Appuyer sur Entre pour continer et R pour recommencer',False,(0,0,0))
+        textsurface2 = myfont2.render('Appuyer sur Entre pour Quitter et R pour recommencer',False,(0,0,0))
     screen.blit(textsurface,(575,50))
     
     if best:
