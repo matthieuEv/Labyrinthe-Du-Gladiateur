@@ -69,17 +69,27 @@ retourne :
     - rien 
 """
 def pgAfficherLab(screen,lab):
+    #On détermine la position du coin en haut a gauche du labyrinthe pour le centrer
     dep = [LARGEUR//2 - (len(lab[0])//2)*TAILLE_CARRE,HAUTEUR//2 - (len(lab)//2)*TAILLE_CARRE]
+
+    #On ballaye chaque case du labyrinthe
     for x in range(len(lab[0])) :
         for y in range(len(lab)):
+            #Si il y a : 1 
             if lab[y][x]:
+                #On affiche un mur noir 
                 pygame.draw.rect(screen,BLACK,pygame.Rect(dep[0],dep[1],TAILLE_CARRE,TAILLE_CARRE))
+            #Si on est en dehors des murs
             elif (x%2==0 or y%2==0):
+                #On affiche une case sombre si il on est pair
                 pygame.draw.rect(screen,DARKGREEN,pygame.Rect(dep[0],dep[1],TAILLE_CARRE,TAILLE_CARRE))
             else:
+                #Sinon on affiche une case clair
                 pygame.draw.rect(screen,GREEN,pygame.Rect(dep[0],dep[1],TAILLE_CARRE,TAILLE_CARRE))
 
+            #On passe à la position suivante
             dep[1] = dep[1]+TAILLE_CARRE
+        #on passe a la ligne suivante
         dep = [dep[0]+TAILLE_CARRE,HAUTEUR//2 - (len(lab)//2)*TAILLE_CARRE]
 
 
@@ -98,15 +108,19 @@ retourne :
     rien 
 """
 def pgDeplacementEntite(screen,tabLab,entite,posArr,posDep=[-1,-1]):
+    #On détermine la position du coin en haut a gauche du labyrinthe pour le centrer
     dep = [LARGEUR//2 - (len(tabLab[0])//2)*TAILLE_CARRE,HAUTEUR//2 - (len(tabLab)//2)*TAILLE_CARRE]
+    #on récupère le chemin relatif des fichier pour charger les images
     base_path = os.path.dirname(__file__)
+
+    #Si on donne une position de départ on efface là d'ou part l'entité 
     if (posDep[0]!=-1):
         pygame.draw.rect(screen,GREEN,pygame.Rect(dep[0]+TAILLE_CARRE*posDep[0],dep[1]+TAILLE_CARRE*posDep[1],TAILLE_CARRE,TAILLE_CARRE))
     if entite :
-        #pygame.draw.rect(screen,YELLOW,pygame.Rect(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1],TAILLE_CARRE,TAILLE_CARRE))
+        #Si on bouge le joueur on charge et affiche l'image du joueur 
         screen.blit(pygame.image.load(os.path.join(base_path,"resources/player.png")),(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1]))
     else:
-        #pygame.draw.rect(screen,RED,pygame.Rect(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1],TAILLE_CARRE,TAILLE_CARRE))
+        #Sinon on charge et affiche l'image du gladiateur
         screen.blit(pygame.image.load(os.path.join(base_path,"resources/glad.png")),(dep[0]+TAILLE_CARRE*posArr[0],dep[1]+TAILLE_CARRE*posArr[1]))
 
 """
@@ -129,10 +143,14 @@ retourne :
     - le numéro de la direction choisi 
 """
 def eventArrow(e,dir):
+    #Si on ferme la fenêtre
     if e.type == pygame.QUIT:
+        #fermer la fenêtre
         closePygame()
         return(10)
+    #Si une touche est levé (on prend levé pour éviter les repétition)
     if e.type == pygame.KEYUP:
+        #On retourne la direction qui correspond a la touche appuyer 
         if ((e.key in [K_d,K_RIGHT]) and dir[0]):
             return(1)
         elif ((e.key in [K_q,K_LEFT]) and dir[1]):
@@ -169,31 +187,46 @@ retourne :
 """
 def  pgGraphEndGame(screen,vict,hist=False,best=False):
     pygame.font.init()
+    #on initialise les polices d'écriture
     myfont = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),50)
     myfont2 = pygame.font.SysFont(os.path.join('resources/fonts/Roboto-Medium.ttf'),30)
+
     if vict : 
+        #Si on est en victoire on affiche win
         textsurface = myfont.render('WIN', False, (0, 0, 0))
         if hist:
+            #Si on est en histoire on affiche de continuer
             textsurface2 = myfont2.render('Appuyer sur Entre pour continer',False,(0,0,0))
         else:
+            #Si on est en arcade on affiche de quitter
             textsurface2 = myfont2.render('Appuyer sur Entre pour Quitter',False,(0,0,0))
     else:
+        #Si on a perdu on propose de recommencer ou de quitter 
         textsurface = myfont.render('LOOSE', False, (0, 0, 0))
         textsurface2 = myfont2.render('Appuyer sur Entre pour Quitter et R pour recommencer',False,(0,0,0))
     screen.blit(textsurface,(575,50))
     
+    #Si on est en meilleur score on l'affiche 
     if best:
         screen.blit(myfont.render('Nouveau meilleur',False,(0,0,0)),(575,670))
+
     screen.blit(textsurface2,(LARGEUR-textsurface2.get_width()-30,700))
     updateScreen()
+
     rep = True
+    #On crée une boucle pour gérer les évènement 
     while(rep):
         for event in getEvent():
+            #Si on ferme la fenêtre
             if event.type == pygame.QUIT:
+                #fermer la fenêtre puis le programme 
                 closePygame()
                 exit()
+            #Si une touche est levé (on prend levé pour éviter les repétition)
             elif event.type == pygame.KEYUP:
+                #Si on clique sur entré ou espace on continue
                 if (event.key in [K_SPACE,K_RETURN]):
                     return(False)
+                #Si on clique sur r on recommence 
                 elif (event.key == K_r and not(vict)):
                     return(True)

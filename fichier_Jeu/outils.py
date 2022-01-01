@@ -120,12 +120,19 @@ Fonction qui écrit le score si il est meilleur que l'ancien
 @author Elouan
 """
 def newBest(nbLab,nbTour):
+    #on récupère le leaderboard dans une liste 
     ldb = recupLeaderboard()
+    #Si on a fait un nouveau meilleur score
     if (nbTour<int(ldb[nbLab-1])):
+        #On met la valeur dans la liste
         ldb[nbLab-1]=str(nbTour)
+        #On ouvre le fichier
         file = open('leaderboard','w')
+        #On écrit la liste mis a jour dans le fichier
         for i in range(len(ldb)):
             file.write((","+ldb[i])if i!=0 else(ldb[i]))
+        #On retourne un texte à afficher
         return("Nouveau meilleur !")
     else:
+        #Si on as pas de record on renvoie un texte vide
         return('')
